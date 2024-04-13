@@ -2,6 +2,7 @@
 import React from "react";
 import Marquee from "react-fast-marquee";
 import { useRouter } from 'next/navigation';
+import { SparklesCore } from "@/components/ui/sparkles";
 
 const Header = () => {
   
@@ -40,7 +41,19 @@ const Header = () => {
   }, [progress]);
 
   return (
+    
     <header className="bg-cover bg-no-repeat bg-[100%] bg-[url('/img/bg1.jpg')]">
+      <div className="fixed left-0 right-0 top-0 bottom-0">
+        <SparklesCore
+          id="tsparticlesfullpage"
+          background="transparent"
+          minSize={0.6}
+          maxSize={1.4}
+          particleDensity={50}
+          className="w-full h-full"
+          particleColor="#FFFFFF"
+        />
+      </div>
       <section className="container p-left p-right text-center">
         <div className="header-row">
           <div
@@ -59,7 +72,7 @@ const Header = () => {
                 </a>
               </li>
               <li>
-                <a href="">
+                <a href="https://t.me/mars_wtf" target="_blank">
                   <img src="/img/telegram.svg" alt="" />
                 </a>
               </li>
@@ -85,7 +98,7 @@ const Header = () => {
             data-aos-easing="ease-in-out"
             data-aos-once="true"
           >
-            <a href="#" className="white btn-primary" onClick={() => router.push("/presale")}>
+            <a className="white btn-primary" onClick={() => router.push("/presale")}>
               PRESALE
             </a>
           </div>
