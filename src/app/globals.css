@@ -205,5 +205,13 @@ ul {
   display: block;
 }
 
+.wallet-button{
+  background: var(--Orange);
+  display: block;
+}
+.wallet-button:hover{
+  background: linear-gradient(8.6deg, #eb3d03 6.57%, #DD5919 93.43%);;
+}
+
 
 

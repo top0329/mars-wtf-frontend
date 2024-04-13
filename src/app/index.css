@@ -30,10 +30,11 @@ h1 {
     background-color: #f3f3f3;
     border-radius: 5px;
     overflow: hidden;
+    display: flex;
 }
 
 .progress-bar-inner {
-    height: 30px;
+    height: 100%;
     transition: all 0.3s;
     width: 0;
 }
@@ -82,10 +83,10 @@ h1 {
     background: #732309;
     border: 1px solid #2D2D2D;
     border-radius: 10px;
+    display: flex;
 }
 
 .progress-bar-inner {
-    height: 28px;
     border: 1px solid #2D2D2D;
     border-radius: 10px;
 }
@@ -403,6 +404,7 @@ canvas {
 .section-mars-101 {
     padding: 46px 146px 30px;
 }
+
 
 .container3 {
     max-width: 912px;
@@ -1211,6 +1213,8 @@ footer h3 {
     .chart-bottom-content ul {
         gap: 4px;
     }
+
+
 
     .token {
         z-index: 10;

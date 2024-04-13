@@ -54,7 +54,7 @@ const Tokenomics = () => {
   }, [progress]);
 
   return (
-    <section className="section-tokenomices p-left p-right">
+    <section className="section-tokenomices !pb-0 p-left p-right">
       <div className="container">
         <div className="title">
           <h2 className="heading-h2 text-center white">TOKENOMICS</h2>
@@ -143,11 +143,6 @@ const Tokenomics = () => {
               <li>Network: BASE</li>
             </ul>
           </div>
-        </div>
-        <div className="button-large">
-          <a href="" className="btn-primary white">
-            LAUNCH APP
-          </a>
         </div>
       </div>
     </section>

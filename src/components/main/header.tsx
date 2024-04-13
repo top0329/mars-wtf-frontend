@@ -110,15 +110,15 @@ const Header = () => {
           <div className="mars-bg space1 bg-[url('/img/mars-bg.png')]">
             <div className="mars-content-row1">
               <div className="flex items-center mars-item gap-12">
-                <div className="margs-logo">
-                  <img src="img/base-logo.svg" alt="" />
+                <div className="margs-logo flex justify-center">
+                  <img src="/img/logo-mars.png" alt="" />
                 </div>
                 <div className="mars-text-l">
                   <span className="white">$MARSWTF 101</span>
                   <p className="white">CURRENT PRICE = 0.XXXX USD</p>
                 </div>
               </div>
-              <div className="mars-item text-center tab-space">
+              <div className="mars-item flex justify-center text-center tab-space">
                 <img src="img/martian.png" alt="" />
               </div>
               <div className="mars-item mars-text-r text-center">

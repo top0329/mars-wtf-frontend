@@ -51,6 +51,11 @@ export default function Home() {
         <img src="/img/presalelive.png" alt="" />
       </section>
       <Tokenomics />
+      <div className="button-large">
+        <a href="" className="btn-primary white mb-24">
+          LAUNCH APP
+        </a>
+      </div>
       <section data-aos="fade-up" data-aos-offset="200" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out" data-aos-once="true">
         <Marquee direction="right" speed={100} pauseOnHover gradient gradientColor="#00000044">
           <div className="flex gap-[100px] md:gap-[200px] py-[10px] md:py-[30px] !pr-[100px] md:!pr-[200px] bg-[#DD5919] !border-x-0 !border-[5px]" style={{ border: "5px solid #2D2D2D" }}>
