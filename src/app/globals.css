@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  max-width: 100%;
+  margin: 0 auto;
+  background: #1d1d1d;
+}
+.app{
+  display: flex;
+}
+.carousel-container {
+  margin: 20px 0;
+  position: relative;
+  overflow: hidden;
+}
+.wrapper-container {
+  position: relative;
+}
+.carousel-item {
+  position: absolute;
+}
+.carousel-item1 {
+  position: absolute;
+}
+.carousel-item2 {
+  position: absolute;
+}
+.wrapper-container1 {
+  position: relative;
+}
+
+/* @font-face {
+  font-family: 'Catfiles Regular';
+  src: local('Catfiles Regular'), url('fonts/Catfiles.woff') format('woff');
+} */
+
+:root {
+  --white: #ffffff;
+  --second-text: rgba(182, 190, 189, 1);
+  --black: #212429;
+  --Catfiles: "Catfiles Regular", sans-serif;
+  --Orange: linear-gradient(8.6deg, #B5360C 6.57%, #DD5919 93.43%);
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0px!important;
+  padding: 0px!important;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* a blue color as a generic focus style */
+button:focus-visible {
+  outline: 2px solid #4a90e2 !important;
+  outline: -webkit-focus-ring-color auto 5px !important;
+}
+
+a {
+  text-decoration: none;
+  -webkit-transition: all 0.3s;                  
+  -moz-transition: all 0.3s;                 
+  -o-transition: all 0.3s;   
+  -ms-transition: all 0.3s;          
+  transition: all 0.3s;
+}
+
+.btn-submit:hover,
+.btn-primary:hover,
+.social-media a:hover {
+  background: linear-gradient(8.6deg, #eb3d03 6.57%, #DD5919 93.43%);;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  font-family: var(--font-cat);
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block
+}
+
+body {
+  line-height: 1;
+  overflow-x: hidden;
+}
+
+ol,
+ul {
+  list-style: none
+}
+.white{
+  color: var(--white);
+}
+.btn-primary{
+  background: var(--Orange);
+  border-radius: 15px;
+  padding: 28px 45px;
+  font-size: 30px;
+  line-height: 24px;
+  display: block;
+}
+
+
+

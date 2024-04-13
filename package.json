@@ -1,0 +1,40 @@
+{
+  "name": "new-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@rainbow-me/rainbowkit": "^2.0.5",
+    "aos": "^2.3.4",
+    "axios": "^1.6.8",
+    "ethers": "^5.7.2",
+    "jotai": "^2.8.0",
+    "jquery": "^3.7.1",
+    "next": "14.1.4",
+    "pino-pretty": "^11.0.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-fast-marquee": "^1.6.4",
+    "react-hot-toast": "^2.4.1",
+    "viem": "^2.9.9",
+    "wagmi": "^2.5.19"
+  },
+  "devDependencies": {
+    "@types/aos": "^3.0.7",
+    "@types/jquery": "^3.5.29",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.1.4",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
+  }
+}
