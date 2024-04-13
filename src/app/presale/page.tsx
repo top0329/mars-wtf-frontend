@@ -6,6 +6,7 @@ import AOS from "aos";
 import Tokenomics from "@/components/main/tokenomics";
 import Marquee from "react-fast-marquee";
 import TopOwners from "@/components/presale/topOwners";
+import { SparklesCore } from "@/components/ui/sparkles";
 
 const Presale = () => {
   React.useEffect(() => {
@@ -47,6 +48,17 @@ const Presale = () => {
 
   return (
     <section>
+      <div className="fixed left-0 right-0 top-0 bottom-0">
+        <SparklesCore
+          id="tsparticlesfullpage"
+          background="transparent"
+          minSize={0.6}
+          maxSize={1.4}
+          particleDensity={50}
+          className="w-full h-full"
+          particleColor="#FFFFFF"
+        />
+      </div>
       <Header />
       <Lecture/>
       <Tokenomics/>

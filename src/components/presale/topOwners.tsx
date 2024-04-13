@@ -151,8 +151,7 @@ const TopOwners = () => {
           </div>
         </div>
       </section>
-      <section className="section-roadmap bg-setting relative z-10 p-left p-right px-20">
-      {/* <section className="section-roadmap bg-setting border-bottom p-left p-right px-20"> */}
+      <section className="section-roadmap bg-setting  p-left p-right px-20">
         <h2 className="heading-h2 text-center white">TOP 100 OWNERS</h2>
         <div
           className="flex justify-center flex-col gap-2 md:gap-3 lg:gap-5 w-full py-10 px-2 lg:px-20"
