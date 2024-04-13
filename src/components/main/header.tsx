@@ -1,8 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import Marquee from "react-fast-marquee";
+import { useRouter } from 'next/navigation';
 
 const Header = () => {
+  
+  const router = useRouter ();
+
+
   const progressRef = React.useRef<HTMLDivElement>(null);
 
   const [progress, setProgress] = React.useState<number>(95);
@@ -80,8 +85,8 @@ const Header = () => {
             data-aos-easing="ease-in-out"
             data-aos-once="true"
           >
-            <a href="#" className="white btn-primary">
-              LAUNCH APP
+            <a href="#" className="white btn-primary" onClick={() => router.push("/presale")}>
+              PRESALE
             </a>
           </div>
         </div>

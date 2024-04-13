@@ -6,8 +6,11 @@ import Image from "next/image";
 
 import Buy from "./buy";
 
+import { useRouter } from "next/navigation";
+
 const Header = () => {
   
+  const router = useRouter ();
 
   const _renderMarquee = () => (
     <Marquee speed={100} pauseOnHover gradient gradientColor="#00000044">
@@ -115,7 +118,7 @@ const Header = () => {
             data-aos-easing="ease-in-out"
             data-aos-once="true"
           >
-            <a href="#" className="white btn-primary">
+            <a href="#" className="white btn-primary" onClick={() => router.push("/")}>
               LAUNCH APP
             </a>
           </div>

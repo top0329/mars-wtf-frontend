@@ -11,7 +11,12 @@ import RoadMap from "@/components/main/roadMap";
 import FAQ from "@/components/main/faq";
 import Footer from "@/components/main/footer";
 
+import { useRouter } from "next/navigation";
+
 export default function Home() {
+
+  const router = useRouter ();
+
   React.useEffect(() => {
     AOS.init();
   }, []);
