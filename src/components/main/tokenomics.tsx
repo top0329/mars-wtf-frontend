@@ -36,20 +36,20 @@ const Tokenomics = () => {
 
       // Draw the border for each part
       ctx.beginPath();
-      ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+      ctx.arc(centerX, centerY, radius, startAngle, endAngle - gap);
       ctx.lineWidth = strokeWidth + borderThickness * 5; // Adjust border thickness
       ctx.strokeStyle = "#2D2D2D"; // Adjust border color
       ctx.stroke();
 
       // Draw the donut part
       ctx.beginPath();
-      ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+      ctx.arc(centerX, centerY, radius, startAngle, endAngle - gap);
       ctx.lineWidth = strokeWidth;
       const partColor = colors[i];
       ctx.strokeStyle = partColor;
       ctx.stroke();
 
-      startAngle = endAngle + gap;
+      startAngle = endAngle;
     }
   }, [progress]);
 
