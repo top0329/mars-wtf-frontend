@@ -5,12 +5,14 @@ import React from "react";
 import AOS from "aos";
 import Marquee from "react-fast-marquee";
 import dynamic from "next/dynamic";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 import Header from "@/components/main/header";
 import Tokenomics from "@/components/main/tokenomics";
 import RoadMap from "@/components/main/roadMap";
 import FAQ from "@/components/main/faq";
 import Footer from "@/components/main/footer";
+import Address from "@/components/main/address";
 
 const SparklesCore = dynamic(() => import("@/components/ui/sparkles"), { ssr: false });
 const Meteors = dynamic(() => import("@/components/ui/meteors"), {ssr: false});
@@ -41,27 +43,7 @@ export default function Home() {
         <Meteors poistion="left"/>
       </div>
       <Header />
-      <section className="bg-setting section-presale p-left p-right bg-[url('/img/bg2.jpg')]">
-        <div className="container mb-64">
-          <h2 className="heading-h2 text-center text-white">PRESALE LIVE</h2>
-        </div>
-        <div
-          className="container2"
-          data-aos="fade-down"
-          data-aos-offset="200"
-          data-aos-delay="200"
-          data-aos-duration="500"
-          data-aos-easing="ease-in-out"
-          data-aos-once="true"
-        >
-          <div className="presale-row align-middle">
-            <span className="text-white">0x00000000000000000000</span>
-            <button value="" id="copy" className="btn-primary text-white">
-              COPY
-            </button>
-          </div>
-        </div>
-      </section>
+      <Address/>
       <section
         className="presale-image"
         data-aos="fade-up"

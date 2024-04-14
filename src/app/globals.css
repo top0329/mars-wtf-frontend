@@ -16,3 +16,20 @@ body {
   --Catfiles: "Catfiles Regular", sans-serif;
   --Orange: linear-gradient(8.6deg, #B5360C 6.57%, #DD5919 93.43%);
 }
+
+
+
+.bounce-effect {
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-1%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}

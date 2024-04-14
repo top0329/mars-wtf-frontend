@@ -117,18 +117,9 @@ const Buy = () => {
           </div>
 
           <div className="px-4 py-6 sm:px-6 sm:py-8 pt-5">
-            <div
-              data-aos="fade-down"
-              data-aos-offset="200"
-              data-aos-delay="200"
-              data-aos-duration="500"
-              data-aos-easing="ease-in-out"
-              data-aos-once="true"
-            >
-              <button className="wallet-button w-full flex justify-center items-center rounded-xl p-5 sm:text-2xl">
-                CONNECT WALLET
-              </button>
-            </div>
+            <button className="wallet-button w-full flex justify-center items-center rounded-xl p-5 sm:text-2xl">
+              CONNECT WALLET
+            </button>
           </div>
         </div>
       </div>

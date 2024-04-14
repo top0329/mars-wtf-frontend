@@ -207,6 +207,7 @@ header {
 
 .header-row {
     display: grid;
+    align-items: center;
     grid-template-columns: auto auto auto;
     justify-content: space-between;
     margin-bottom: 47px;
@@ -777,8 +778,7 @@ canvas {
 
 .accordion-content {
     overflow: hidden;
-    max-height: 0;
-    transition: max-height 0.3s ease;
+    transition: max-height 0.5s ease;
 }
 
 .accordion-content .line {

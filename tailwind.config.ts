@@ -35,14 +35,9 @@ const config: Config = {
             transform: "rotate(215deg) translateX(-500px)",
             opacity: "0",
           },
-        },
-        // growAndShrink: {
-        //   "0%": { transform: "scale(0)" },
-        //   "50%": { transform: "scale(1)" },
-        //   "100%": { transform: "scale(0)" },
-        // }
-      },
-    },
+        }
+      }
+    }
   },
   plugins: [],
 };

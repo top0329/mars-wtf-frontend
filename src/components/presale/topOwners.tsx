@@ -120,17 +120,20 @@ const TopOwners = () => {
           </div>
 
           <div className="flex flex-col gap-1 w-full lg:w-1/2">
-            <div className="flex gap-2 items-center text-white text-2xl lg:text-3xl">
-              <Image
-                src={"/img/planets/1.svg"}
-                width={0}
-                alt=""
-                height={0}
-                sizes="100vw"
-                className="w-[65px] object-contain relative -translate-x-[10px]"
-              />
-              <span className="truncate">{holders[1]?.wallet_address}</span>
-            </div>
+            {
+              holders.length > 0 &&
+              <div className="flex gap-2 items-center text-white text-2xl lg:text-3xl">
+                <Image
+                  src={"/img/planets/1.svg"}
+                  width={0}
+                  alt=""
+                  height={0}
+                  sizes="100vw"
+                  className="w-[65px] object-contain relative -translate-x-[10px]"
+                />
+                <span className="truncate">{holders[1]?.wallet_address}</span>
+              </div>
+            }
 
             {holders.slice(2, 11).map((_holder: IHolder, index: number) => (
               <div

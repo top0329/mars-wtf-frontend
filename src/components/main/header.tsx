@@ -2,8 +2,10 @@
 import React from "react";
 import Marquee from "react-fast-marquee";
 import { useRouter } from 'next/navigation';
+import dynamic from "next/dynamic";
 
-import Sparkles from "@/components/ui/sparkle";
+const Sparkles = dynamic(() => import("@/components/ui/sparkle"), {ssr:false});
+// import Sparkles from "@/components/ui/sparkle";
 
 
 const Header = () => {
@@ -45,7 +47,6 @@ const Header = () => {
   return (
     
     <header className="bg-cover bg-no-repeat bg-[100%] bg-[url('/img/bg1.jpg')]">
-      
       <section className="container p-left p-right text-center">
         <div className="header-row">
           <div
@@ -98,7 +99,7 @@ const Header = () => {
           </div>
         </div>
         <div
-          className="flex justify-center relative z-10"
+          className="flex justify-center relative z-10 min-h-[730px]"
           data-aos="fade-down"
           data-aos-offset="300"
           data-aos-delay="300"
@@ -107,7 +108,7 @@ const Header = () => {
           data-aos-once="true"
         >
           <Sparkles top={30} left={10} right={90} bottom={100} interval={100}>
-            <img src="img/ufo.png" alt="" />
+            <img className="bounce-effect" src="img/ufo.png" alt="" />
           </Sparkles>
         </div>
       </section>
@@ -137,7 +138,7 @@ const Header = () => {
               </div>
               <div className="mars-item mars-text-r text-center">
                 <span className="text-white">PRESALE LIVE NOW!</span>
-                <p className="text-white">STAGE 3</p>
+                <p className="text-white">STAGE 1</p>
               </div>
             </div>
             <div className="mars-content-row2">
@@ -155,7 +156,7 @@ const Header = () => {
             </div>
           </div>
           <div className="token">
-            <Sparkles top={15} right={85} left={15} bottom={85} interval={400}>
+            <Sparkles top={15} right={85} left={15} bottom={85} interval={400} color="#ffffff">
               <img src="img/token1.png" alt="" />
             </Sparkles>
           </div>

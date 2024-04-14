@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@iconify/react": "^4.1.1",
     "@rainbow-me/rainbowkit": "^2.0.5",
     "@tsparticles/engine": "^3.3.0",
     "@tsparticles/react": "^3.0.0",
