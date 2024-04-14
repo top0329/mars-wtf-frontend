@@ -65,6 +65,7 @@ function Sparkles({ children, color = DEFAULT_COLOR, top = 0, left = 0, right = 
 
   return (
     <div className="relative inline-block">
+      {children}
       {
         sparkles.map((_sparkle: Sparkle, index: number) => (
           <SparkleInstance
@@ -75,7 +76,6 @@ function Sparkles({ children, color = DEFAULT_COLOR, top = 0, left = 0, right = 
           />
         ))
       }
-      {children}
     </div>
   )
 }

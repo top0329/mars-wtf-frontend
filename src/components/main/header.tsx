@@ -155,7 +155,7 @@ const Header = () => {
             </div>
           </div>
           <div className="token">
-            <Sparkles top={15} right={85} left={15} bottom={85} interval={100}>
+            <Sparkles top={15} right={85} left={15} bottom={85} interval={400}>
               <img src="img/token1.png" alt="" />
             </Sparkles>
           </div>
