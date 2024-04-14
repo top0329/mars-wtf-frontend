@@ -9,6 +9,8 @@ import TopOwners from "@/components/presale/topOwners";
 
 import dynamic from "next/dynamic";
 
+const Sparkles = dynamic(() => import("@/components/ui/sparkle"), {ssr:false});
+
 const SparklesCore = dynamic(() => import("@/components/ui/sparkles"), { ssr: false });
 const Meteors = dynamic(() => import("@/components/ui/meteors"), {ssr: false});
 

@@ -3,6 +3,9 @@
 import React from "react";
 import Marquee from "react-fast-marquee";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+
+const Sparkles = dynamic(() => import("@/components/ui/sparkle"), {ssr:false});
 
 import Buy from "./buy";
 
@@ -92,7 +95,7 @@ const Header = () => {
                 </a>
               </li>
               <li>
-                <a href="">
+                <a href="https://t.me/mars_wtf" target="_blank">
                   <img src="/img/telegram.svg" alt="" />
                 </a>
               </li>

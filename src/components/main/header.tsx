@@ -3,7 +3,6 @@ import React from "react";
 import Marquee from "react-fast-marquee";
 import { useRouter } from 'next/navigation';
 import dynamic from "next/dynamic";
-
 const Sparkles = dynamic(() => import("@/components/ui/sparkle"), {ssr:false});
 // import Sparkles from "@/components/ui/sparkle";
 
