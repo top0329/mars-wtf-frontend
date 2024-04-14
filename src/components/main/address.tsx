@@ -26,7 +26,7 @@ const Address = () => {
         data-aos-once="true"
       >
         <div className="presale-row align-middle">
-          <span className="text-white">0x00000000000000000000</span>
+          <span className="text-white truncate">0xfB7176581a345b1168098b3BE9Fa7E15641e652f</span>
 
           <button onClick={handleCopy} value="" id="copy" className="btn-primary text-white">
             { copied ? "COPIED!": "COPY" }

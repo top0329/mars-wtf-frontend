@@ -6,6 +6,7 @@ import AOS from "aos";
 import Tokenomics from "@/components/main/tokenomics";
 import Marquee from "react-fast-marquee";
 import TopOwners from "@/components/presale/topOwners";
+import { useRouter } from "next/navigation";
 
 import dynamic from "next/dynamic";
 
@@ -15,6 +16,9 @@ const SparklesCore = dynamic(() => import("@/components/ui/sparkles"), { ssr: fa
 const Meteors = dynamic(() => import("@/components/ui/meteors"), {ssr: false});
 
 const Presale = () => {
+
+  const router = useRouter ();
+
   React.useEffect(() => {
     AOS.init();
   }, []);
@@ -69,6 +73,11 @@ const Presale = () => {
       </div>
       <Header />
       <Lecture/>
+      <div className="button-large mt-20">
+        <a onClick={() => router.push("/")} className="btn-primary text-white mb-24 cursor-pointer relative z-30">
+          LAUNCH APP
+        </a>
+      </div>
       <Tokenomics/>
       <Marqee/>
       <TopOwners/>

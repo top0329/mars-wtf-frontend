@@ -4,9 +4,7 @@ import React from "react";
 import Marquee from "react-fast-marquee";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-
-const Sparkles = dynamic(() => import("@/components/ui/sparkle"), {ssr:false});
-
+import WalletConnectButton from "./connectButton";
 import Buy from "./buy";
 
 import { useRouter } from "next/navigation";
@@ -88,7 +86,12 @@ const Header = () => {
             data-aos-easing="ease-in-out"
             data-aos-once="true"
           >
-            <ul>
+            <ul className="lg:!gap-3">
+              <li>
+                <a onClick={() => router.push("/")}>
+                  <img src="/img/home.svg" alt="" />
+                </a>
+              </li>
               <li>
                 <a href="">
                   <img src="/img/twitter.svg" alt="" />
@@ -121,9 +124,12 @@ const Header = () => {
             data-aos-easing="ease-in-out"
             data-aos-once="true"
           >
-            <a href="#" className="text-white btn-primary" onClick={() => router.push("/")}>
-              LAUNCH APP
-            </a>
+            <WalletConnectButton/>
+            {/* <Sparkles>
+              <a href="#" className="text-white btn-primary" onClick={() => router.push("/")}>
+                LAUNCH APP
+              </a>
+            </Sparkles> */}
           </div>
         </div>
       </section>

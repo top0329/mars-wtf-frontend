@@ -119,7 +119,7 @@ const TopOwners = () => {
             ></canvas>
           </div>
 
-          <div className="flex flex-col gap-1 w-full lg:w-1/2">
+          <div className="flex flex-col justify-center gap-1 w-full lg:w-1/2">
             {
               holders.length > 0 &&
               <div className="flex gap-2 items-center text-white text-2xl lg:text-3xl">

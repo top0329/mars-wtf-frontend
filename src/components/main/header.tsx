@@ -129,7 +129,7 @@ const Header = () => {
                 </div>
                 <div className="mars-text-l">
                   <span className="text-white">$MARSWTF 101</span>
-                  <p className="text-white">CURRENT PRICE = 0.XXXX USD</p>
+                  <p className="text-white">CURRENT PRICE = $0.00007</p>
                 </div>
               </div>
               <div className="mars-item flex justify-center text-center tab-space">
@@ -143,10 +143,10 @@ const Header = () => {
             <div className="mars-content-row2">
               <div className="mars-text-bottom">
                 <div className="mars-text-1">
-                  <p className="text-white">Total MARS sold: xx,xxx,xxx</p>
+                  <p className="text-white">Total MARS sold: 1,000,000,000 </p>
                 </div>
                 <div className="mars-text-2">
-                  <p className="text-white">Sale Target: xx,xxx,xxx $MARS</p>
+                  <p className="text-white">Sale Target: 1,000,000,000 $MARS</p>
                 </div>
               </div>
               <div className="progress-bar">
