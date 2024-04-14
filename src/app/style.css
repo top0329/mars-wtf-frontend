@@ -5,7 +5,7 @@ body {
 }
 /*header*/
 header{
-    padding-top: 108px;
+    padding-top: 108px!important;
 }
 .container {
     max-width: 1400px;
@@ -28,12 +28,12 @@ h1{
     background-color: #f3f3f3;
     border-radius: 5px;
     overflow: hidden;
-  }
-  .progress-bar-inner {
+}
+    .progress-bar-inner {
     height: 30px;
     transition: all 0.3s;
     width: 0;
-  }
+}
 /* twitter */
 .social-media a {
     background: var(--Orange);
@@ -147,7 +147,7 @@ h1{
 .container-base{
     margin-top: 25px;
 }
-.section-base{
+.container-fluid{
     background-color: black!important;
 }
 .container-fluid{

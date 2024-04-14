@@ -3,10 +3,11 @@
 @tailwind utilities;
 
 body {
-  max-width: 100%;
-  margin: 0 auto;
-  background: #1d1d1d;
+  background-color: #01095a;
+  font-family: var(--Catfiles);
+  width: 100vw;
 }
+
 .app{
   display: flex;
 }
@@ -47,12 +48,6 @@ body {
 * {
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0px!important;
-  padding: 0px!important;
 }
 
 img {
