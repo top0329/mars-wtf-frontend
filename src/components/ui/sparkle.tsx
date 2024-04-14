@@ -1,6 +1,5 @@
 import React from "react";
 import { useRandomInterval } from "@/utils/useRandomInterval";
-import { usePrefersReducedMotion } from '@/utils/usePrefersReducedMotion';
 
 const random = (min: number, max: number) => Math.floor(Math.random() * (max - min)) + min;
 
@@ -49,7 +48,6 @@ function Sparkles({ children, color = DEFAULT_COLOR, top = 0, left = 0, right = 
     const now = Date.now();
     // Create a new sparkle
     const sparkle = generateSparkle(color, top, left, right, bottom);
-    // console.log(sparkle)
     // Clean up any "expired" sparkles
     const nextSparkles = sparkles.filter((sparkle: Sparkle) => {
       const delta = now - sparkle.createdAt;
@@ -61,7 +59,6 @@ function Sparkles({ children, color = DEFAULT_COLOR, top = 0, left = 0, right = 
     // Make it so!
     setSparkles(nextSparkles);
   }, 50, interval);
-
 
   return (
     <div className="relative inline-block">
