@@ -119,7 +119,7 @@ video {
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
+    /* font-size: 100%; */
     font: inherit;
     vertical-align: baseline;
     font-family: var(--font-cat);
@@ -142,10 +142,6 @@ section {
 ol,
 ul {
     list-style: none
-}
-
-.white {
-    color: var(--white);
 }
 
 .btn-primary {

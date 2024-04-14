@@ -103,8 +103,8 @@ const RoadMap = () => {
               data-aos-easing="ease-in-out"
               data-aos-once="true"
             >
-              <h3 className="white">Phase 1</h3>
-              <h4 className="white">Blast Off</h4>
+              <h3 className="text-white">Phase 1</h3>
+              <h4 className="text-white">Blast Off</h4>
               <ul>
                 <li>Token Drop: $WENMars hits the market.</li>
                 <li>Telegram Takeover: Our Martian base.</li>
@@ -121,8 +121,8 @@ const RoadMap = () => {
               data-aos-easing="ease-in-out"
               data-aos-once="true"
             >
-              <h3 className="white">Phase 2</h3>
-              <h4 className="white">Martian Expansion</h4>
+              <h3 className="text-white">Phase 2</h3>
+              <h4 className="text-white">Martian Expansion</h4>
               <ul>
                 <li>
                   Cosmic Alliances: Partner with Martian research and space tech
@@ -153,8 +153,8 @@ const RoadMap = () => {
               data-aos-easing="ease-in-out"
               data-aos-once="true"
             >
-              <h3 className="white">Phase 3</h3>
-              <h4 className="white">Build Mars</h4>
+              <h3 className="text-white">Phase 3</h3>
+              <h4 className="text-white">Build Mars</h4>
               <ul>
                 <li>NFT Drop: Own a piece of Mars.</li>
                 <li>Amplify the Hype - Unite Martians and dominate Mars!</li>
@@ -171,8 +171,8 @@ const RoadMap = () => {
               data-aos-easing="ease-in-out"
               data-aos-once="true"
             >
-              <h3 className="white">Phase 4</h3>
-              <h4 className="white">Galactic Domination</h4>
+              <h3 className="text-white">Phase 4</h3>
+              <h4 className="text-white">Galactic Domination</h4>
               <ul>
                 <li>Big Exchange Listings: $WENMars goes universal.</li>
                 <li>Chain Bridges: Mars everywhere.</li>

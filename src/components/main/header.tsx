@@ -79,7 +79,7 @@ const Header = () => {
             data-aos-easing="ease-in-out"
             data-aos-once="true"
           >
-            <h1 className="white">$MARSWTF</h1>
+            <h1 className="text-white">$MARSWTF</h1>
           </div>
           <div
             className="button"
@@ -128,25 +128,25 @@ const Header = () => {
                   <img src="/img/logo-mars.png" alt="" />
                 </div>
                 <div className="mars-text-l">
-                  <span className="white">$MARSWTF 101</span>
-                  <p className="white">CURRENT PRICE = 0.XXXX USD</p>
+                  <span className="text-white">$MARSWTF 101</span>
+                  <p className="text-white">CURRENT PRICE = 0.XXXX USD</p>
                 </div>
               </div>
               <div className="mars-item flex justify-center text-center tab-space">
                 <img src="img/martian.png" alt="" />
               </div>
               <div className="mars-item mars-text-r text-center">
-                <span className="white">PRESALE LIVE NOW!</span>
-                <p className="white">STAGE 3</p>
+                <span className="text-white">PRESALE LIVE NOW!</span>
+                <p className="text-white">STAGE 3</p>
               </div>
             </div>
             <div className="mars-content-row2">
               <div className="mars-text-bottom">
                 <div className="mars-text-1">
-                  <p className="white">Total MARS sold: xx,xxx,xxx</p>
+                  <p className="text-white">Total MARS sold: xx,xxx,xxx</p>
                 </div>
                 <div className="mars-text-2">
-                  <p className="white">Sale Target: xx,xxx,xxx $MARS</p>
+                  <p className="text-white">Sale Target: xx,xxx,xxx $MARS</p>
                 </div>
               </div>
               <div className="progress-bar">

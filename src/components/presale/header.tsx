@@ -107,7 +107,7 @@ const Header = () => {
             data-aos-easing="ease-in-out"
             data-aos-once="true"
           >
-            <h1 className="white">$MARSWTF</h1>
+            <h1 className="text-white">$MARSWTF</h1>
           </div>
           <div
             className="button"

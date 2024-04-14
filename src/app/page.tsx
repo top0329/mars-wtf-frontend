@@ -55,7 +55,7 @@ export default function Home() {
           data-aos-once="true"
         >
           <div className="presale-row align-middle">
-            <span className="white">0x00000000000000000000</span>
+            <span className="text-white">0x00000000000000000000</span>
             <button value="" id="copy" className="btn-primary white">
               COPY
             </button>
