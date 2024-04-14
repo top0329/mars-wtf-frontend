@@ -6,7 +6,11 @@ import AOS from "aos";
 import Tokenomics from "@/components/main/tokenomics";
 import Marquee from "react-fast-marquee";
 import TopOwners from "@/components/presale/topOwners";
-import { SparklesCore } from "@/components/ui/sparkles";
+
+import dynamic from "next/dynamic";
+
+const SparklesCore = dynamic(() => import("@/components/ui/sparkles"), { ssr: false });
+const Meteors = dynamic(() => import("@/components/ui/meteors"), {ssr: false});
 
 const Presale = () => {
   React.useEffect(() => {
@@ -58,6 +62,8 @@ const Presale = () => {
           className="w-full h-full"
           particleColor="#FFFFFF"
         />
+        <Meteors poistion="top"/>
+        <Meteors poistion="left"/>
       </div>
       <Header />
       <Lecture/>

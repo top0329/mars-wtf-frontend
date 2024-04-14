@@ -3,6 +3,8 @@ import React from "react";
 import Marquee from "react-fast-marquee";
 import { useRouter } from 'next/navigation';
 
+import Sparkles from "@/components/ui/sparkle";
+
 
 const Header = () => {
   
@@ -88,9 +90,11 @@ const Header = () => {
             data-aos-easing="ease-in-out"
             data-aos-once="true"
           >
-            <a className="white btn-primary cursor-pointer" onClick={() => router.push("/presale")}>
-              PRESALE
-            </a>
+            <Sparkles>
+              <a className="white btn-primary cursor-pointer" onClick={() => router.push("/presale")}>
+                PRESALE
+              </a>
+            </Sparkles>
           </div>
         </div>
         <div
@@ -102,7 +106,9 @@ const Header = () => {
           data-aos-easing="ease-in-out"
           data-aos-once="true"
         >
-          <img src="img/ufo.png" alt="" />
+          <Sparkles top={30} left={10} right={90} bottom={100} interval={100}>
+            <img src="img/ufo.png" alt="" />
+          </Sparkles>
         </div>
       </section>
       <section className="max-w-[1300px] mt-[-160px] mx-auto p-left p-right">
@@ -149,7 +155,9 @@ const Header = () => {
             </div>
           </div>
           <div className="token">
-            <img src="img/token1.png" alt="" />
+            <Sparkles top={15} right={85} left={15} bottom={85} interval={100}>
+              <img src="img/token1.png" alt="" />
+            </Sparkles>
           </div>
         </div>
       </section>

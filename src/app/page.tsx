@@ -4,13 +4,16 @@ import Image from "next/image";
 import React from "react";
 import AOS from "aos";
 import Marquee from "react-fast-marquee";
+import dynamic from "next/dynamic";
 
 import Header from "@/components/main/header";
 import Tokenomics from "@/components/main/tokenomics";
 import RoadMap from "@/components/main/roadMap";
 import FAQ from "@/components/main/faq";
 import Footer from "@/components/main/footer";
-import { SparklesCore } from "@/components/ui/sparkles";
+
+const SparklesCore = dynamic(() => import("@/components/ui/sparkles"), { ssr: false });
+const Meteors = dynamic(() => import("@/components/ui/meteors"), {ssr: false});
 
 import { useRouter } from "next/navigation";
 
@@ -33,6 +36,9 @@ export default function Home() {
           className="w-full h-full"
           particleColor="#FFFFFF"
         />
+
+        <Meteors poistion="top"/>
+        <Meteors poistion="left"/>
       </div>
       <Header />
       <section className="bg-setting section-presale p-left p-right bg-[url('/img/bg2.jpg')]">
