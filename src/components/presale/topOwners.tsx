@@ -88,7 +88,7 @@ const TopOwners = () => {
   return (
     <>
       <section className="section-roadmap bg-setting border-bottom p-left p-right bg-[url('/img/bg5.jpg')] px-20">
-        <h2 className="heading-h2 text-center white">TOP 10 OWNERS</h2>
+        <h2 className="heading-h2 text-center text-white">TOP 10 OWNERS</h2>
         <div
           className="flex lg:flex-row justify-center flex-col gap-10 lg:gap-20 w-full bg-[#0058C9] rounded-3xl mt-[50px] py-10 px-10 lg:px-20"
           style={{ border: "5px solid #2D2D2D" }}
@@ -152,7 +152,7 @@ const TopOwners = () => {
         </div>
       </section>
       <section className="section-roadmap bg-setting  p-left p-right px-20">
-        <h2 className="heading-h2 text-center white">TOP 100 OWNERS</h2>
+        <h2 className="heading-h2 text-center text-white">TOP 100 OWNERS</h2>
         <div
           className="flex justify-center flex-col gap-2 md:gap-3 lg:gap-5 w-full py-10 px-2 lg:px-20"
           data-aos="fade-right"

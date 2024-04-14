@@ -91,7 +91,7 @@ const Header = () => {
             data-aos-once="true"
           >
             <Sparkles>
-              <a className="white btn-primary cursor-pointer" onClick={() => router.push("/presale")}>
+              <a className="text-white btn-primary cursor-pointer" onClick={() => router.push("/presale")}>
                 PRESALE
               </a>
             </Sparkles>

@@ -43,7 +43,7 @@ export default function Home() {
       <Header />
       <section className="bg-setting section-presale p-left p-right bg-[url('/img/bg2.jpg')]">
         <div className="container mb-64">
-          <h2 className="heading-h2 text-center white">PRESALE LIVE</h2>
+          <h2 className="heading-h2 text-center text-white">PRESALE LIVE</h2>
         </div>
         <div
           className="container2"
@@ -56,7 +56,7 @@ export default function Home() {
         >
           <div className="presale-row align-middle">
             <span className="text-white">0x00000000000000000000</span>
-            <button value="" id="copy" className="btn-primary white">
+            <button value="" id="copy" className="btn-primary text-white">
               COPY
             </button>
           </div>
@@ -75,7 +75,7 @@ export default function Home() {
       </section>
       <Tokenomics />
       <div className="button-large">
-        <a href="" className="btn-primary white mb-24">
+        <a href="" className="btn-primary text-white mb-24">
           LAUNCH APP
         </a>
       </div>

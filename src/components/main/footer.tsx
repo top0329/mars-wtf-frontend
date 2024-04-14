@@ -16,7 +16,7 @@ const Footer = () => {
       <h2>Welcome The Future</h2>
       <h3>$MARSWTF</h3>
       <div className="button-large">
-        <a href="" className="btn-primary white">
+        <a href="" className="btn-primary text-white">
           LAUNCH APP
         </a>
       </div>

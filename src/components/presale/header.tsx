@@ -118,7 +118,7 @@ const Header = () => {
             data-aos-easing="ease-in-out"
             data-aos-once="true"
           >
-            <a href="#" className="white btn-primary" onClick={() => router.push("/")}>
+            <a href="#" className="text-white btn-primary" onClick={() => router.push("/")}>
               LAUNCH APP
             </a>
           </div>

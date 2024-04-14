@@ -58,7 +58,7 @@ const RoadMap = () => {
   return (
     <>
       <section className="bg-setting section-mars-101 p-left p-right bg-[url('/img/bg4.jpg')]">
-        <h2 className="heading-h2 text-center white">MARS 101</h2>
+        <h2 className="heading-h2 text-center text-white">MARS 101</h2>
         <div
           className="container3"
           data-aos="fade-right"
@@ -91,7 +91,7 @@ const RoadMap = () => {
         </div>
       </section>
       <section className="section-roadmap bg-setting border-bottom p-left p-right bg-[url('/img/bg5.jpg')]">
-        <h2 className="heading-h2 text-center white">ROADMAP</h2>
+        <h2 className="heading-h2 text-center text-white">ROADMAP</h2>
         <div className="container4 mt-82">
           <div className="roadmap-content">
             <div

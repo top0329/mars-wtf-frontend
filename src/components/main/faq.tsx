@@ -10,7 +10,7 @@ const FAQ = () => {
     <section className="section-faq p-left p-right !font-cat">
       <div className="container5 align-middle">
         <h2
-          className="heading white"
+          className="heading text-white"
           data-aos="fade-right"
           data-aos-offset="200"
           data-aos-delay="100"

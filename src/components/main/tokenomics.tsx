@@ -57,7 +57,7 @@ const Tokenomics = () => {
     <section className="section-tokenomices !pb-0 p-left p-right">
       <div className="container">
         <div className="title">
-          <h2 className="heading-h2 text-center white">TOKENOMICS</h2>
+          <h2 className="heading-h2 text-center text-white">TOKENOMICS</h2>
         </div>
         <div className="donut-chart-bg">
           <div className="donut-chart-ui">
