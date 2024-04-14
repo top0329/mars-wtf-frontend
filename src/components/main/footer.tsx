@@ -12,7 +12,7 @@ const Footer = () => {
       data-aos-easing="ease-in-out"
       data-aos-once="true"
     >
-      <img src="/img/mars-logo-large.png" alt="" className="mx-auto"/>
+      <img src="/img/mars-logo.svg" alt="" className="mx-auto" height={300} width={300}/>
       <h2>Welcome The Future</h2>
       <h3>$MARSWTF</h3>
       <div className="button-large">
