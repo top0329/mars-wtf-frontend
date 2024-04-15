@@ -17,17 +17,18 @@ body {
   --Orange: linear-gradient(8.6deg, #B5360C 6.57%, #DD5919 93.43%);
 }
 
-
-
 .bounce-effect {
   animation: bounce 1s infinite;
 }
 
 @keyframes bounce {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(-1%);
     animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
   }
+
   50% {
     transform: translateY(0);
     animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
@@ -35,7 +36,7 @@ body {
 }
 
 /* max-w-96 !bg-gray-900 shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5 text-white */
-.notification{
+.notification {
   background-color: rgb(46, 43, 43);
   color: white;
   border-radius: 10px;
