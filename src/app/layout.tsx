@@ -4,9 +4,9 @@ import { Inter } from "next/font/google";
 import Provider from '@/providers';
 import Head from 'next/head';
 import "@rainbow-me/rainbowkit/styles.css";
-import "aos/dist/aos.css";
 import "./globals.css";
-import "./index.css";
+import "aos/dist/aos.css";
+// import "./index.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

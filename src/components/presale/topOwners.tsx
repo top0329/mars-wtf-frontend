@@ -123,7 +123,7 @@ const TopOwners = () => {
 
           <div className="flex flex-col justify-center gap-1 w-full lg:w-1/2">
             {
-              holders.length > 0 &&
+              holders[0] &&
               <div className="flex gap-2 items-center text-white text-2xl lg:text-3xl">
                 <Image
                   src={"/img/planets/1.svg"}
@@ -133,7 +133,7 @@ const TopOwners = () => {
                   sizes="100vw"
                   className="w-[65px] object-contain relative -translate-x-[10px]"
                 />
-                <span className="truncate">{holders[1]?.wallet_address}</span>
+                <a href={`https://basescan.org/address/${holders[1]?.wallet_address}`} target="_blank" className="truncate cursor-pointer hover:underline">{holders[1]?.wallet_address}</a>
               </div>
             }
 
@@ -150,7 +150,7 @@ const TopOwners = () => {
                   sizes="100vw"
                   className="w-[50px] aspect-square object-contain"
                 />
-                <span className="truncate">{_holder.wallet_address}</span>
+                <a href={`https://basescan.org/address/${_holder.wallet_address}`} target="_blank" className="truncate cursor-pointer hover:underline">{_holder.wallet_address}</a>
               </div>
             ))}
           </div>
@@ -171,7 +171,7 @@ const TopOwners = () => {
             holders.map((_holder: IHolder, index: number) => (
               <div key={index} className="bg-[#0058C9] gap-2 px-3 py-2 lg:px-10 lg:py-5 rounded-3xl text-white text-sm md:text-xl lg:text-3xl w-full flex justify-between">
                 <span>#{index+1}</span>
-                <div className="truncate hover:underline cursor-pointer">{_holder.wallet_address}</div>
+                  <a href={`https://basescan.org/address/${_holder.wallet_address}`} target="_blank" className="truncate hover:underline cursor-pointer">{_holder.wallet_address}</a>
                 <div>10ETH</div>
               </div>
             ))
