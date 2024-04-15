@@ -117,7 +117,6 @@ video {
     margin: 0;
     padding: 0;
     border: 0;
-    font: inherit;
     vertical-align: baseline;
     font-family: var(--font-cat);
 }
@@ -211,10 +210,6 @@ header {
     grid-template-columns: auto auto auto;
     justify-content: space-between;
     margin-bottom: 47px;
-}
-
-h1 {
-    font-size: 100px;
 }
 
 .progress-bar {
