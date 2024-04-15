@@ -93,7 +93,7 @@ const Header = () => {
                 </a>
               </li>
               <li>
-                <a href="">
+                <a href="https://twitter.com/marscoin_wtf" target="_blank">
                   <img src="/img/twitter.svg" alt="" />
                 </a>
               </li>
@@ -125,11 +125,6 @@ const Header = () => {
             data-aos-once="true"
           >
             <WalletConnectButton/>
-            {/* <Sparkles>
-              <a href="#" className="text-white btn-primary" onClick={() => router.push("/")}>
-                LAUNCH APP
-              </a>
-            </Sparkles> */}
           </div>
         </div>
       </section>

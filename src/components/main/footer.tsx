@@ -1,7 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
+import { useRouter } from "next/navigation";
+
 
 const Footer = () => {
+
+  const router = useRouter ();
+
   return (
     <footer
       className="bg-setting text-center p-left p-right bg-[url('/img/bg7.jpg')]"
@@ -16,8 +21,8 @@ const Footer = () => {
       <h2>Welcome The Future</h2>
       <h3>$MARSWTF</h3>
       <div className="button-large">
-        <a href="" className="btn-primary text-white">
-          LAUNCH APP
+        <a onClick={() => router.push("/presale")} className="btn-primary cursor-pointer text-white">
+          PRESALE
         </a>
       </div>
     </footer>

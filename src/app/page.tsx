@@ -56,9 +56,9 @@ export default function Home() {
         <img src="/img/presalelive.png" alt="" />
       </section>
       <Tokenomics />
-      <div className="button-large">
-        <a href="" className="btn-primary text-white mb-24">
-          LAUNCH APP
+      <div className="button-large relative z-30 ">
+        <a onClick={() => router.push("/presale")} className="btn-primary text-white mb-24 cursor-pointer">
+          PRESALE
         </a>
       </div>
       <section data-aos="fade-up" data-aos-offset="200" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out" data-aos-once="true">

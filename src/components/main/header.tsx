@@ -85,7 +85,7 @@ const Header = () => {
           >
             <ul>
               <li>
-                <a href="">
+                <a href="https://twitter.com/marscoin_wtf" target="_blank">
                   <img src="/img/twitter.svg" alt="" />
                 </a>
               </li>

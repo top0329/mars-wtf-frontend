@@ -73,11 +73,6 @@ const Presale = () => {
       </div>
       <Header />
       <Lecture/>
-      <div className="button-large mt-20">
-        <a onClick={() => router.push("/")} className="btn-primary text-white mb-24 cursor-pointer relative z-30">
-          LAUNCH APP
-        </a>
-      </div>
       <Tokenomics/>
       <Marqee/>
       <TopOwners/>
