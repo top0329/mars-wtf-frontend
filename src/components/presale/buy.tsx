@@ -9,6 +9,7 @@ import {
 import useToastr from "@/hooks/useToastr";
 import Web3 from 'web3';
 import { _renderNumber } from "@/utils/methods";
+import { BASE_URL } from "@/constants/config";
 import axios from "axios";
 
 
@@ -41,8 +42,7 @@ const Buy = () => {
 
   React.useEffect(() => {
     axios
-      .get(`https://marswtf-backend.onrender.com/api/presale/1`)
-      // .get(`http://localhost:5000/api/presale/1`)
+      .get(`${BASE_URL}/api/presale/1`)
       .then(({ data: { data } }) => {
         console.log(data);
         setPresalePrice (data.price);
@@ -105,9 +105,7 @@ const Buy = () => {
       setPresaleSoldMars (_totalMarsWTFSold/1e9);
       setPresalePrice(Number(_presalePrice/1e6));
 
-      // .get(`https://marswtf-backend.onrender.com/api/holders`)
-      // .get(`http://localhost:5000/api/presale`)
-      await axios.put('https://marswtf-backend.onrender.com/api/presale', { price: Number(_presalePrice/1e6), sold: Number(_totalMarsWTFSold/1e9), stage: 1 });
+      await axios.put(`${BASE_URL}/api/presale`, { price: Number(_presalePrice/1e6), sold: Number(_totalMarsWTFSold/1e9), stage: 1 });
     } catch (err) {
       console.log(err)
     }
@@ -204,7 +202,7 @@ const Buy = () => {
       if (Number(fromAmount) < 1e-6) {
         throw "Can't buy too small amount";
       }
-      if (Number(toAmount) > presaleBalance) {
+      if (Number(toAmount) > Number(presaleTotal - presaleSoldMars)) {
         throw "Insufficient token Amount to buy";
       }
       if (!chainId) {

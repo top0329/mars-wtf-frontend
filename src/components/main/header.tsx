@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import { _renderNumber } from "@/utils/methods";
 const Sparkles = dynamic(() => import("@/components/ui/sparkle"), {ssr:false});
 // import Sparkles from "@/components/ui/sparkle";
+import { BASE_URL } from "@/constants/config";
 
 
 const Header = () => {
@@ -23,8 +24,7 @@ const Header = () => {
 
   React.useEffect(() => {
     axios
-      .get(`https://marswtf-backend.onrender.com/api/presale/1`)
-      // .get(`http://localhost:5000/api/presale/1`)
+      .get(`${BASE_URL}/api/presale/1`)
       .then(({ data: { data } }) => {
         console.log(data);
         setPresalePrice (data.price);
