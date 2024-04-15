@@ -26,14 +26,9 @@ export const metadata: Metadata = {
     icon: [
       {
         media: "(prefers-color-scheme: light)",
-        url: "/favicon.svg",
-        href: "/favicon.svg",
-      },
-      {
-        media: "(prefers-color-scheme: dark)",
-        url: "/favicon.svg",
-        href: "/favicon.svg",
-      },
+        url: "/favicon.png",
+        href: "/favicon.png",
+      }
     ],
   },
 };

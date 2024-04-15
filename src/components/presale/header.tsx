@@ -144,7 +144,7 @@ const Header = () => {
           data-aos-once="true"
         >
           <div className="p-0 sm:pl-10 text-white text-center w1200:text-left">
-            <h2 className="text-3xl lg:text-5xl">STAGE3</h2>
+            <h2 className="text-3xl lg:text-5xl">STAGE1</h2>
             <h1 className="text-5xl xs:text-5xl lg:text-7xl mt-5">
               $MARSWTF<br/>
               PRESALE

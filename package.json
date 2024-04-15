@@ -31,7 +31,8 @@
     "react-hot-toast": "^2.4.1",
     "tailwind-merge": "^2.2.2",
     "viem": "^2.9.9",
-    "wagmi": "^2.5.19"
+    "wagmi": "^2.5.19",
+    "web3": "^4.7.0"
   },
   "devDependencies": {
     "@types/aos": "^3.0.7",

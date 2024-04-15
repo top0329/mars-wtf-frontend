@@ -85,6 +85,8 @@ const TopOwners = () => {
       });
   }, []);
 
+
+
   return (
     <>
       <section className="section-roadmap bg-setting border-bottom p-left p-right bg-[url('/img/bg5.jpg')] px-20">
@@ -169,7 +171,7 @@ const TopOwners = () => {
             holders.map((_holder: IHolder, index: number) => (
               <div key={index} className="bg-[#0058C9] gap-2 px-3 py-2 lg:px-10 lg:py-5 rounded-3xl text-white text-sm md:text-xl lg:text-3xl w-full flex justify-between">
                 <span>#{index+1}</span>
-                <div className="truncate">{_holder.wallet_address}</div>
+                <div className="truncate hover:underline cursor-pointer">{_holder.wallet_address}</div>
                 <div>10ETH</div>
               </div>
             ))

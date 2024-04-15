@@ -34,7 +34,7 @@ const config = getDefaultConfig({
     },
   ],
   chains: [
-    arbitrum,
+    // arbitrum,
     sepolia,
     // ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [sepolia] : []),
   ],

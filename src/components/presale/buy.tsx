@@ -2,26 +2,352 @@ import React from "react";
 import Image from "next/image";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import useActiveWeb3 from "@/hooks/useActiveWeb3";
+import { Contract, providers, ethers } from 'ethers';
 import {
   useConnectModal
 } from '@rainbow-me/rainbowkit';
+import useToastr from "@/hooks/useToastr";
+import Web3 from 'web3';
+import { _renderNumber } from "@/utils/methods";
+import axios from "axios";
+
+
+import { MARS_WTF_ABI, EARLY_LIQUIDITY_ABI, ERC20_ABI } from '@/constants/abis';
+import  { TOKEN_ADDRESSES, EARLY_LIQUIDITY_ADDRESSES, USDC_ADDRESS, } from '@/constants/config';
 
 const Buy = () => {
   const progressRef = React.useRef<HTMLDivElement>(null);
-  const { isConnected, address,  } = useActiveWeb3 ();
   const { openConnectModal } = useConnectModal();
-
   const [progress, setProgress] = React.useState<number>(95);
+  const { showToast } = useToastr ();
+
+
+  const { address, isConnected, isConnecting, isReconnecting, connector, chainId, signer } = useActiveWeb3();// hook address, isconnected, inConnecting
+  //abis
+  const [contractMarsWTF, setContractMarsWTF] = React.useState<Contract|undefined>(undefined);
+  const [contractEarlyLiquidity, setContractEarlyLiquidity] = React.useState<Contract|undefined>(undefined);
+  const [constractUSDC, setContractUSDC] = React.useState<Contract|undefined>(undefined);
+  //contract infos
+  const [balances, setBalances] = React.useState<Record<string, number>>({});
+  const [memeBalance, setMemeBalance] = React.useState<number>(0);
+  const [presalePrice, setPresalePrice] = React.useState<number>(0);
+  const [presaleSoldMars, setPresaleSoldMars] = React.useState<number>(0);
+  const [presaleTotal, setPresaleTotal] = React.useState<number>(0);
+  //fromAmount and toAmount
+  const [fromAmount, setFromAmount] = React.useState<string>("");
+  const [toAmount, setToAmount] = React.useState<string>("");
+
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   React.useEffect(() => {
+    axios
+      .get(`https://marswtf-backend.onrender.com/api/presale/1`)
+      // .get(`http://localhost:5000/api/presale/1`)
+      .then(({ data: { data } }) => {
+        console.log(data);
+        setPresalePrice (data.price);
+        setPresaleTotal (data.total);
+        setPresaleSoldMars (data.sold);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [])
+
+  /**
+   * get MarsBalance
+   * @param _contract 
+   */
+  const _getMarsBalance = async(_contract = contractMarsWTF) => {
+    try {
+      if (!_contract) throw "no contract";
+      if (!address) throw "no address";
+      const _balance = await _contract.balanceOf(address);
+      const _num = Number(_balance)/1e9;
+      setMemeBalance (_num);
+    } catch (err) {
+
+    }
+  }
+  /**
+   * get USDC balance
+   * @param _contract 
+   */
+  const _getUSDCBalance = async(_contract = constractUSDC) => {
+    try {
+      if (!_contract) throw "no contract";
+      if (!address) throw "no address";
+      const _balance = await _contract.balanceOf(address);
+      console.log(_balance)
+      setBalances ({ ...balances, 'usdc': Number(_balance)/1e6 });
+    } catch (err) {
+
+    }
+  }
+  /**
+   * get early LP info, 
+   * @param _contract marsWTF Contract
+   * @param _lpContract earlyLiquidity Contract
+   */
+  const _getEarlyLiquidityInfo = async (_contract = contractMarsWTF, _lpContract = contractEarlyLiquidity) => {
+    try {
+      if (!_contract) throw "no contract";
+      if (!chainId) throw "invalid chainId";
+      // const _balance = await _contract.balanceOf(EARLY_LIQUIDITY_ADDRESSES[chainId]);
+      // const num = Number(_balance)/1e9;
+      // console.log("presale balance -----------", num);
+      // setPresaleBalance(num); //presale amount
+
+      if(!_lpContract) throw "no lp contract";
+      const _totalMarsWTFSold = await _lpContract.getTotalMarsWTFSold ();
+      const _presalePrice = await _lpContract.getPresalePrice();
+      console.log('presale price ------>', Number(_presalePrice));
+      setPresaleSoldMars (_totalMarsWTFSold/1e9);
+      setPresalePrice(Number(_presalePrice/1e6));
+
+      // .get(`https://marswtf-backend.onrender.com/api/holders`)
+      // .get(`http://localhost:5000/api/presale`)
+      await axios.put('https://marswtf-backend.onrender.com/api/presale', { price: Number(_presalePrice/1e6), sold: Number(_totalMarsWTFSold/1e9), stage: 1 });
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  /**
+   * get Contract data when first load
+   */
+  React.useEffect(() => {
+    if (address && chainId && signer) {
+      const _contractMarsWTF = new ethers.Contract(
+        TOKEN_ADDRESSES[chainId],
+        MARS_WTF_ABI,
+        signer,
+      );
+      setContractMarsWTF (_contractMarsWTF);
+      _getMarsBalance (_contractMarsWTF);
+      
+      const _contractEarlyLiquidity = new ethers.Contract(
+        EARLY_LIQUIDITY_ADDRESSES[chainId],
+        EARLY_LIQUIDITY_ABI,
+        signer
+      );
+      
+      _getEarlyLiquidityInfo (_contractMarsWTF, _contractEarlyLiquidity);
+      setContractEarlyLiquidity (_contractEarlyLiquidity);
+    } else {
+      setBalances ({});
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address, chainId, signer]);
+  /**
+   * when load the web3, get stable Coin balances
+   */
+  React.useEffect(() => {
+    if (address && chainId && signer) {
+      const _contractUSDC = new ethers.Contract(USDC_ADDRESS, ERC20_ABI, signer);
+      setContractUSDC (_contractUSDC);
+      _getUSDCBalance (_contractUSDC);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address, chainId, signer]);
+  /**
+   * when the fromAmount is changed by user typing...
+   * @param e HTMLChangeEvent
+   * @returns 
+   */
+  const handleFromAmountChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    //@ts-ignore
+    if (Number(value) < 0 || isNaN(Number(value)) || value.length > 15) {
+      setFromAmount("0");
+      return;
+    }
+    const _amount = Number(value) / presalePrice;
+    setFromAmount(value);
+    if (_amount === Infinity || isNaN(_amount)) {
+      setToAmount ("0.0");
+    } else {
+      setToAmount (String(_amount));
+    }
+  }
+  /**
+   * when the toAmount is changed by user typing...
+   * @param e HTMLChangeEvent
+   * @returns 
+   */
+  const handleToAmountChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    //@ts-ignore
+    if (Number(value) < 0 || isNaN(Number(value)) || value.length > 15) {
+      setToAmount("0");
+      return;
+    }
+    setToAmount(value);
+    const _amount = Number(value) * presalePrice;
+    if (_amount === Infinity || isNaN(_amount)) {
+      setFromAmount ("0.0");
+    } else {
+      setFromAmount (String(_amount));
+    }
+  }
+
+  const handleBuyMeme = async () => {
+    try {
+      setIsLoading (true);
+      if (!constractUSDC) throw "no USDC contract";
+      if (!contractEarlyLiquidity) throw "no lp contract";
+
+      if (fromAmount === "" || toAmount === "") {
+        throw "Input Token Amount to Buy";
+      }
+
+      if (Number(fromAmount) < 1e-6) {
+        throw "Can't buy too small amount";
+      }
+      if (Number(toAmount) > presaleBalance) {
+        throw "Insufficient token Amount to buy";
+      }
+      if (!chainId) {
+        throw "Invalid chainId";
+      }
+      
+      const _amountUSDC = Math.round(Number(fromAmount) * 1e6);
+      const _amountMeme = Math.round(Number(toAmount) * 1e9);
+      const _approveTx = await constractUSDC.approve(EARLY_LIQUIDITY_ADDRESSES[chainId], _amountUSDC);
+      await _approveTx.wait();
+      showToast ("Token is approved Successfully", "info");
+      const _buyTx = await contractEarlyLiquidity.buy(_amountMeme);
+      await _buyTx.wait();
+      showToast ("Transaction Success", "info");
+      console.log(_buyTx);
+
+      await _getEarlyLiquidityInfo ();
+      await _getMarsBalance ();
+      await _getUSDCBalance ();
+    } catch (err: any) {
+      if (String(err.code) === "ACTION_REJECTED") {
+        showToast ("User rejected transaction.", "warning");
+      } else {
+        showToast (String(err), "warning");
+      }
+    } finally {
+      setIsLoading (false);
+    }
+  }
+
+  const addUSDC = () => {
+
+    
+    if(!window.ethereum) {
+      window.alert('Please install MetaMask');
+      window.open('https://metamask.io/download.html', '_self');
+      return;
+    }
+    const web3 = new Web3(window.ethereum);
+    
+    web3.eth.net.getId().then((networkId: any) => {
+      if (web3.currentProvider) {
+        //@ts-ignore
+        web3.currentProvider.sendAsync({
+          method: 'wallet_watchAsset',
+          params: {
+            type: 'ERC20',
+            options: {
+              address: "0x94a9D9AC8a22534E3FaCa9F4e7F2E2cf85d5E4C8",
+              symbol: 'USDC',
+              decimals: 6,
+              image: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3408.png',
+            },
+          },
+        });
+      }
+    });
+  }
+
+  const addToken = () => {
+
+    
+    if(!window.ethereum) {
+      window.alert('Please install MetaMask');
+      window.open('https://metamask.io/download.html', '_self');
+      return;
+    }
+    const web3 = new Web3(window.ethereum);
+    
+    web3.eth.net.getId().then((networkId: any) => {
+      if (web3.currentProvider) {
+        //@ts-ignore
+        web3.currentProvider.sendAsync({
+          method: 'wallet_watchAsset',
+          params: {
+            type: 'ERC20',
+            options: {
+              address: "0x10B70F96Eccba753231D853157386579301622eF",
+              symbol: 'MarsWTF',
+              decimals: 9,
+              image: 'https://mars-wtf.vercel.app/_next/image?url=%2Flogo.png&w=1080&q=75',
+            },
+          },
+        });
+      }
+    });
+  }
+
+  // const itemsMeme: MenuProps['items'] = [
+  //   {
+  //     key: '1',
+  //     label: (
+  //       <a target="_blank" rel="noopener noreferrer" href="https://sepolia.etherscan.io/address/0x10B70F96Eccba753231D853157386579301622eF">
+  //         View on Explorer
+  //       </a>
+  //     ),
+  //   },
+  //   {
+  //     key: '2',
+  //     label: (
+  //       <a onClick={addToken}>
+  //         Imprt WTF
+  //       </a>
+  //     ),
+  //   }
+  // ];
+
+  // const itemsUSDC: MenuProps['items'] = [
+  //   {
+  //     key: '1',
+  //     label: (
+  //       <a target="_blank" rel="noopener noreferrer" href="https://sepolia.etherscan.io/address/0x94a9D9AC8a22534E3FaCa9F4e7F2E2cf85d5E4C8">
+  //         View on Explorer
+  //       </a>
+  //     ),
+  //   },
+  //   {
+  //     key: '2',
+  //     label: (
+  //       <a onClick={addUSDC}>
+  //         Imprt USDC
+  //       </a>
+  //     ),
+  //   }
+  // ];
+
+
+  React.useEffect(() => {
+    let percent = (presaleSoldMars) * 100 / presaleTotal;
+    if (isNaN(percent) || percent === Infinity) {
+      percent = 0;
+    }
+
+
     if (!progressRef.current) return;
-    var initialWidth = progress;
+    var initialWidth = percent;
     var currentWidth = 0;
     var animationSpeed = 1;
     var intervalDuration = 10;
     var interval = setInterval(frame, intervalDuration);
 
     function frame() {
+      
       if (currentWidth >= initialWidth) {
         clearInterval(interval);
       } else {
@@ -30,6 +356,7 @@ const Buy = () => {
           currentWidth = initialWidth;
         }
         if (!progressRef.current) return;
+        console.log(initialWidth, currentWidth)
         progressRef.current.style.width = currentWidth + "%";
         if (initialWidth > 0) {
           progressRef.current.style.background =
@@ -37,13 +364,14 @@ const Buy = () => {
         }
       }
     }
-  }, [progress]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [presaleSoldMars, presaleTotal]);
 
   const handleClick = () => {
     if (!isConnected && openConnectModal) {
       openConnectModal ();
     } else {
-
+      
     }
   }
 
@@ -66,11 +394,11 @@ const Buy = () => {
             className="w-full px-4 py-6 sm:px-6 sm:py-8 flex flex-col gap-1 sm:gap-3"
             style={{ borderBottom: "7px solid #2D2D2D" }}
           >
-            <h3 className="text-xl sm:text-3xl">50/100 $MARS SOLD</h3>
+            <h3 className="text-xl sm:text-3xl break-all overflow-auto">{_renderNumber(presaleSoldMars)}/{_renderNumber(presaleTotal)} $MARS SOLD</h3>
             <div className="progress-bar w-full">
               <div className="progress-bar-inner" ref={progressRef}></div>
             </div>
-            <h3 className="text-lg sm:text-2xl">CURRENT PRICE = 1.23 USD</h3>
+            <h3 className="text-lg sm:text-2xl">CURRENT PRICE = {presalePrice} USD</h3>
           </div>
           <div className="px-4 py-6 sm:px-6 sm:py-8 flex flex-col gap-10">
             <div className="flex flex-col gap-2">
@@ -89,15 +417,20 @@ const Buy = () => {
                     <input
                       placeholder="0.0"
                       className="bg-transparent w-[100px] text-xl sm:text-2xl outline-none border-none"
+                      value={fromAmount}
+                      onChange={handleFromAmountChanged}
                     />
                     <h3 className="text-2xl sm:text-3xl">USDC</h3>
                   </div>
-                  <h3 className="text-xl sm:text-2xl">
-                    <span className="text-[15px] xl:text-lg">
-                      CURRENT BALANCE:
-                    </span>{" "}
-                    800
-                  </h3>
+                  {
+                    isConnected &&
+                    <h3 className="text-xl sm:text-2xl">
+                      <span className="text-[15px] xl:text-lg">
+                        CURRENT BALANCE:
+                      </span>{" "}
+                      {balances.usdc ? balances.usdc: 0}
+                    </h3>
+                  }
                 </div>
               </div>
             </div>
@@ -115,17 +448,22 @@ const Buy = () => {
                 <div className="flex flex-col justify-center item-center">
                   <div className="flex items-center  sm:gap-1">
                     <input
+                      value={toAmount}
+                      onChange={handleToAmountChanged}
                       placeholder="0.0"
                       className="bg-transparent w-[100px] text-xl sm:text-2xl outline-none border-none"
                     />
                     <h3 className="text-2xl sm:text-3xl">MWTF</h3>
                   </div>
-                  <h3 className="text-xl sm:text-2xl">
-                    <span className="text-[15px] xl:text-lg">
-                      CURRENT BALANCE:
-                    </span>{" "}
-                    800
-                  </h3>
+                  {
+                    isConnected &&
+                    <h3 className="text-xl sm:text-2xl">
+                      <span className="text-[15px] xl:text-lg">
+                        CURRENT BALANCE:
+                      </span>{" "}
+                      { _renderNumber(memeBalance) }
+                    </h3>
+                  }
                 </div>
               </div>
             </div>

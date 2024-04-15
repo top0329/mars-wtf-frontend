@@ -2,7 +2,9 @@
 import React from "react";
 import Marquee from "react-fast-marquee";
 import { useRouter } from 'next/navigation';
+import axios from "axios";
 import dynamic from "next/dynamic";
+import { _renderNumber } from "@/utils/methods";
 const Sparkles = dynamic(() => import("@/components/ui/sparkle"), {ssr:false});
 // import Sparkles from "@/components/ui/sparkle";
 
@@ -14,17 +16,40 @@ const Header = () => {
 
   const progressRef = React.useRef<HTMLDivElement>(null);
 
-  const [progress, setProgress] = React.useState<number>(95);
+
+  const [presalePrice, setPresalePrice] = React.useState<number>(0);
+  const [presaleSoldMars, setPresaleSoldMars] = React.useState<number>(0);
+  const [presaleTotal, setPresaleTotal] = React.useState<number>(0);
 
   React.useEffect(() => {
+    axios
+      .get(`https://marswtf-backend.onrender.com/api/presale/1`)
+      // .get(`http://localhost:5000/api/presale/1`)
+      .then(({ data: { data } }) => {
+        console.log(data);
+        setPresalePrice (data.price);
+        setPresaleTotal (data.total);
+        setPresaleSoldMars (data.sold);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [])
+
+  React.useEffect(() => {
+    let percent = (presaleSoldMars) * 100 / presaleTotal;
+    if (isNaN(percent)) {
+      percent = 0;
+    }
     if (!progressRef.current) return;
-    var initialWidth = progress;
+    var initialWidth = percent;
     var currentWidth = 0;
     var animationSpeed = 1;
     var intervalDuration = 10;
     var interval = setInterval(frame, intervalDuration);
 
     function frame() {
+      
       if (currentWidth >= initialWidth) {
         clearInterval(interval);
       } else {
@@ -33,6 +58,7 @@ const Header = () => {
           currentWidth = initialWidth;
         }
         if (!progressRef.current) return;
+        console.log(initialWidth, currentWidth)
         progressRef.current.style.width = currentWidth + "%";
         if (initialWidth > 0) {
           progressRef.current.style.background =
@@ -40,8 +66,8 @@ const Header = () => {
         }
       }
     }
-
-  }, [progress]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [presaleSoldMars, presaleTotal]);
 
   return (
     
@@ -129,7 +155,7 @@ const Header = () => {
                 </div>
                 <div className="mars-text-l">
                   <span className="text-white">$MARSWTF 101</span>
-                  <p className="text-white">CURRENT PRICE = $0.00007</p>
+                  <p className="text-white">CURRENT PRICE = ${presalePrice}</p>
                 </div>
               </div>
               <div className="mars-item flex justify-center text-center tab-space">
@@ -143,10 +169,10 @@ const Header = () => {
             <div className="mars-content-row2">
               <div className="mars-text-bottom">
                 <div className="mars-text-1">
-                  <p className="text-white">Total MARS sold: 1,000,000,000 </p>
+                  <p className="text-white">Total MARS sold: {_renderNumber(presaleSoldMars)} </p>
                 </div>
                 <div className="mars-text-2">
-                  <p className="text-white">Sale Target: 1,000,000,000 $MARS</p>
+                  <p className="text-white">Sale Target: {_renderNumber(presaleTotal)} $MARS</p>
                 </div>
               </div>
               <div className="progress-bar">
