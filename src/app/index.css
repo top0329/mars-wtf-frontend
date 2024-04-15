@@ -212,6 +212,10 @@ header {
     margin-bottom: 47px;
 }
 
+h1 {
+    font-size: 100px;
+}
+
 .progress-bar {
     width: 100%;
     background-color: #f3f3f3;
