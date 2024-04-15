@@ -14,7 +14,7 @@ export const _renderNumber = (value: number | string = 0) => {
   }
   _num += num[0];
   let str = _num.split("").reverse().reduce((acc: string, item: string) => acc += item, "");
-  if (_decimal) str += `.${_decimal}`;
+  if (_decimal) str += `.${_decimal.substring(0,2)}`;
 
   return str;
 };
