@@ -15,7 +15,7 @@ const Tokenomics = () => {
     const radius = 175; // Adjust the radius
     const strokeWidth = 60; // Adjust the stroke width
     const borderThickness = 2; // Adjust the border thickness
-    const parts = [25, 15, 10, 6, 4, 10, 5, 25]; // Adjust the values
+    const parts = [12.5, 17.5, 10, 5, 5, 5, 10, 5, 30]; // Adjust the values
     const total = parts.reduce((acc, val) => acc + val, 0);
     const gap = 0.05; // Adjust the gap between parts
     const colors = [
@@ -27,6 +27,7 @@ const Tokenomics = () => {
       "#42C7E8", //sky
       "#C56D74", // dark orange
       "#CB0A16", //red
+      "#42C7E8", //sky
     ]; // Updated colors array
 
     let startAngle = -Math.PI / 2;
@@ -72,20 +73,20 @@ const Tokenomics = () => {
             >
               <ul id="legendLeft">
                 <li>
-                  <span className="number">25%</span>
-                  <span className="text">AIRDROPT</span>
+                  <span className="number">12.5%</span>
+                  <span className="text">tier1 private sale</span>
                 </li>
                 <li>
-                  <span className="number">12%</span>
-                  <span className="text">private sale</span>
+                  <span className="number">17.5%</span>
+                  <span className="text">tier2 private sale</span>
                 </li>
                 <li>
-                  <span className="number">17%</span>
-                  <span className="text">contributors</span>
+                  <span className="number">10%</span>
+                  <span className="text">AI Pepe holders airdrop</span>
                 </li>
                 <li>
-                  <span className="number">2%</span>
-                  <span className="text">Exchange Launchpool</span>
+                  <span className="number">5%</span>
+                  <span className="text">team (vested)</span>
                 </li>
               </ul>
             </div>
@@ -114,16 +115,20 @@ const Tokenomics = () => {
             >
               <ul id="legendRight">
                 <li>
-                  <span className="number">30%</span>
-                  <span className="text">LP BURNED</span>
+                  <span className="number">5%</span>
+                  <span className="text">advisors</span>
                 </li>
                 <li>
-                  <span className="number">11%</span>
-                  <span className="text">COMMUNITY PRESALE</span>
+                  <span className="number">5%</span>
+                  <span className="text">market making</span>
                 </li>
                 <li>
-                  <span className="number">3%</span>
-                  <span className="text">Advisory</span>
+                  <span className="number">10%</span>
+                  <span className="text">Marketing</span>
+                </li>
+                <li>
+                  <span className="number">5%, 30%</span>
+                  <span className="text">CEX & Liquidity Provider</span>
                 </li>
               </ul>
             </div>
@@ -139,7 +144,7 @@ const Tokenomics = () => {
           >
             <ul>
               <li>Symbol: MARSWTF</li>
-              <li>Supply: 10,000,000</li>
+              <li>Supply: 1 billion</li>
               <li>Network: BASE</li>
             </ul>
           </div>
