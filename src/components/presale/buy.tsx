@@ -17,6 +17,8 @@ import axios from "axios";
 import { MARS_WTF_ABI, EARLY_LIQUIDITY_ABI, ERC20_ABI } from '@/constants/abis';
 import { TOKEN_ADDRESSES, EARLY_LIQUIDITY_ADDRESSES, USDC_ADDRESS, } from '@/constants/config';
 import Sparkles from "../ui/sparkle";
+import { add } from "lodash";
+import { formatEther, formatUnits } from "viem";
 
 const Buy = () => {
   const progressRef = React.useRef<HTMLDivElement>(null);
@@ -42,85 +44,84 @@ const Buy = () => {
   const [showTokenSelector, setShowTokenSelector] = React.useState<boolean>(false);
   const [currentPayToken, setCurrentPayToken] = React.useState<string>("eth");
   //presale states
-  const [totalCap, setTotalCap] = React.useState<number>(0);
+  const [fundsRaised, setFundsRaised] = React.useState<number>(0);
+  const [hardcap, setHardcap] = React.useState<number>(0);
   const [currentPrice, setCurrentPrice] = React.useState<number>(0);
-  const [presaleMarsBalance, setPresaleMarsBalance] = React.useState<number>(0);
+  const [marsPurchased, setMarsPurchased] = React.useState<number>(0);
+  const [usdcBalance, setUsdcBalance] = React.useState<number>(0);
+  const [ethBalance, setEthBalance] = React.useState<number>(0);
   //time calculation
   const timerRef = React.useRef<ReturnType<typeof setInterval> | null>(null);
   const [endTime, setEndTime] = React.useState<number>(0);
   const [distance, setDistance] = React.useState<number>(0);
   //loading
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  // contracts
+  const [presaleReadContract, setPresaleReadContract] = React.useState<Contract | undefined>(undefined);
+  const [presaleWriteContract, setPresaleWriteContract] = React.useState<Contract | undefined>(undefined);
 
-  const initialize = async (_address?: string, _provider?: any) => {
+  const initialize = async (_contract: Contract | undefined = presaleReadContract, _address: string | undefined = address) => {
+    if (!_contract) return;
+    // view only
+    const [
+      _endTime,
+      _fundsRaised,
+      _currentPrice,
+      _hardcap
+      // _presaleBalance,
+    ] = await Promise.all([
+      _contract.endTimeStamp(),
+      _contract.fundsRaised(),
+      _contract.getCurrentTokenPrice(),
+      _contract.getHardcap()
+    ]);
+    setEndTime(Number(_endTime));
+    setFundsRaised(Number(utils.formatUnits(_fundsRaised, 6)));
+    setHardcap(Number(utils.formatUnits(_hardcap, 6)));
+    setCurrentPrice(Number(utils.formatUnits(_currentPrice, 6)));
+    // address
+    if (_address) {
+      const [
+        _purchased,
+        _usdcBalance,
+        _ethBalance
+      ] = await Promise.all([
+        _contract.balanceOf(_address),
+        _contract.usdcBalance(_address),
+        _contract.provider.getBalance(_address)
+      ]);
+      setMarsPurchased (Number(utils.formatUnits(_purchased, 18)));
+      setUsdcBalance (Number(utils.formatUnits(_usdcBalance, 6)));
+      setEthBalance (Number(utils.formatEther(_ethBalance)));
+    }
+  }
+
+  React.useEffect(() => {
     const chainId = 11155111;
     const _chain = chains[chainId];
     // web3 provider
-    const provider = _provider ?? new providers.JsonRpcProvider(_chain.rpc);
+    const provider = new providers.JsonRpcProvider(_chain.rpc);
     // presale contract
     const { address: presaleContractAddress, abi: presaleContractABI } = contracts[chainId].presale;
-    const _presaleContract = new Contract(presaleContractAddress, presaleContractABI, provider);
-    // usdc contract
-    const { address: usdcContractAddress, abi: usdcContractABI } = contracts[chainId].usdc;
-    const _usdcContract = new Contract(usdcContractAddress, usdcContractABI, provider);
-    // mars contract
-    const { address: marsContractAddress, abi: marsContractABI } = contracts[chainId].mars;
-    const _marsContract = new Contract(marsContractAddress, marsContractABI, provider);
+    const _presaleReadContract = new Contract(presaleContractAddress, presaleContractABI, provider);
+    setPresaleReadContract(_presaleReadContract);
+    initialize(_presaleReadContract);
+  }, []);
 
-    const [
-      _endTime,
-      _totalCap,
-      _currentPrice,
-      _presaleBalance,
-    ] = await Promise.all ([
-      _presaleContract.endTimeStamp (),
-      _presaleContract.totalCap (),
-      _presaleContract.getCurrentTokenPrice (),
-      _marsContract.balanceOf(contracts[chainId].presale.address)
-    ]);
-
-    setEndTime (Number(_endTime));
-    setTotalCap (Number(utils.formatUnits(_totalCap, 6)));
-    setCurrentPrice (Number(utils.formatUnits(_currentPrice, 6)));
-    setPresaleMarsBalance(Number(utils.formatUnits(_presaleBalance, 18)));
-
-    console.log({
-      remain: Number(_endTime),
-      totalCap: Number(utils.formatUnits(_totalCap, 6)),
-      presaleBalance: Number(utils.formatUnits(_presaleBalance, 18))
-    })
-
-    // if (!_address) {
-    //   const [
-    //     _tokenNumber,
-    //     _mintFee
-    //   ] = await Promise.all([
-    //     _contract.tokenNumber(),
-    //     _contract.mintFee()
-    //   ]);
-    //   // setNftNumber (Number(_tokenNumber));
-    //   // setCurrentFee (Number(utils.formatEther(_mintFee)));
-    // } else {
-    //   const [
-    //     _tokenNumber,
-    //     _mintFee,
-    //     _myFreeMintCount,
-    //     _myFeeMintCount
-    //   ] = await Promise.all([
-    //     _contract.tokenNumber(),
-    //     _contract.mintFee(),
-    //     _contract.freeCreations(_address),
-    //     _contract.feeCreations(_address)
-    //   ]);
-      // console.log({
-      //   myFreeMintCount
-      // })
-      // setNftNumber (Number(_tokenNumber));
-      // setCurrentFee (Number(utils.formatEther(_mintFee)));
-      // setMyFreeMintCount (Number(_myFreeMintCount));
-      // setMyFeeMintCount (Number(_myFeeMintCount));
-    // }
-  }
+  /**
+ * get Contract data when first load
+ */
+  React.useEffect(() => {
+    if (address && chainId && signer) {
+      const _chain = chains[chainId];
+      // presale contract
+      const { address: presaleContractAddress, abi: presaleContractABI } = contracts[chainId].presale;
+      const _presaleContract = new Contract(presaleContractAddress, presaleContractABI, signer);
+      setPresaleWriteContract (_presaleContract);
+      initialize(_presaleContract, address);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address, chainId, signer]);
 
   React.useEffect(() => {
     timerRef.current = setInterval(async () => {
@@ -138,7 +139,7 @@ const Buy = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endTime]);
 
-  
+
   const [days, hours, minutes, seconds] = React.useMemo(() => {
     let days: string | number = Math.floor(distance / (60 * 60 * 24));
     let hours: string | number = Math.floor(
@@ -155,12 +156,6 @@ const Buy = () => {
     return [days, hours, minutes, seconds];
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [distance]);
-
-  React.useEffect(() => {
-    if (address && signer) {
-      initialize(address, signer);
-    }
-  }, [address, signer]);
 
   /**
    * get MarsBalance
@@ -192,34 +187,9 @@ const Buy = () => {
 
     }
   }
-  
 
-  /**
-   * get Contract data when first load
-   */
-  React.useEffect(() => {
-    if (address && chainId && signer) {
-      const _contractMarsWTF = new ethers.Contract(
-        TOKEN_ADDRESSES[chainId],
-        MARS_WTF_ABI,
-        signer,
-      );
-      setContractMarsWTF(_contractMarsWTF);
-      _getMarsBalance(_contractMarsWTF);
 
-      const _contractEarlyLiquidity = new ethers.Contract(
-        EARLY_LIQUIDITY_ADDRESSES[chainId],
-        EARLY_LIQUIDITY_ABI,
-        signer
-      );
 
-      // _getEarlyLiquidityInfo(_contractMarsWTF, _contractEarlyLiquidity);
-      setContractEarlyLiquidity(_contractEarlyLiquidity);
-    } else {
-      setBalances({});
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address, chainId, signer]);
   /**
    * when load the web3, get stable Coin balances
    */
@@ -236,21 +206,34 @@ const Buy = () => {
    * @param e HTMLChangeEvent
    * @returns 
    */
-  const handleFromAmountChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+  const handleFromAmountChanged = async (value: string) => {
     //@ts-ignore
     if (Number(value) < 0 || isNaN(Number(value)) || value.length > 15) {
       setFromAmount("0");
       return;
     }
-    const _amount = Number(value) / presalePrice;
+
     setFromAmount(value);
-    if (_amount === Infinity || isNaN(_amount)) {
-      setToAmount("0.0");
-    } else {
-      setToAmount(String(_amount));
+    if (!presaleReadContract) return;
+
+    try {
+      if (currentPayToken === 'eth') {
+        const _fromAmount = utils.parseEther (value ? value : '0');
+        const _amount = await presaleReadContract.buyEstimationWithEth (_fromAmount);
+        setToAmount (_renderNumber(formatEther(_amount)));
+      } else {
+        const _fromAmount = utils.parseUnits (value ? value : '0', 6);
+        const _amount = await presaleReadContract.buyEstimationWithUsdc (_fromAmount);
+        setToAmount (_renderNumber(formatEther(_amount)));
+      }
+    } catch (err) {
+      
     }
   }
+
+  React.useEffect(() => {
+    handleFromAmountChanged (fromAmount);
+  }, [currentPayToken]);
   /**
    * when the toAmount is changed by user typing...
    * @param e HTMLChangeEvent
@@ -275,37 +258,50 @@ const Buy = () => {
   const handleBuyMeme = async () => {
     try {
       setIsLoading(true);
-      if (!constractUSDC) throw "no USDC contract";
-      if (!contractEarlyLiquidity) throw "no lp contract";
+      if (!presaleWriteContract) throw "no lp contract";
 
       if (fromAmount === "" || toAmount === "") {
-        throw "Input Token Amount to Buy";
+        throw "Input Eth or USDC amount for buying mars token";
       }
 
-      // if (Number(fromAmount) < 1e-6) {
-      if (Number(fromAmount) < 0.5) {
-        throw "Minimum amount is 0.5 USD!";
+      // // if (Number(fromAmount) < 1e-6) {
+      // if (Number(fromAmount) < 0.5) {
+      //   throw "Minimum amount is 0.5 USD!";
+      // }
+      // if (Number(toAmount) > Number(presaleTotal - presaleSoldMars)) {
+      //   throw "Insufficient token Amount to buy";
+      // }
+      // if (!chainId) {
+      //   throw "Invalid chainId";
+      // }
+      if (currentPayToken === 'eth') {
+        if (Number(fromAmount) >= ethBalance) {
+          throw "Insufficient ETH balance for buying mars token"
+        }
+        const _ethAmount = utils.parseEther(fromAmount);
+        const _tx = await presaleWriteContract.buyTokenWithETH ({ value: _ethAmount });
+        await _tx.wait ();
+        showToast("Transaction Success", "success");
+        console.log(_tx);
+      } else {
+        if (Number(fromAmount) > usdcBalance) {
+          throw "Insufficient Usdc balance for buying mars token"
+        }
+        const _usdcAmount = utils.parseUnits(fromAmount, 6);
+        const chainId = 11155111;
+        // usdc contract
+        const { address: usdcAddress, abi: usdcContractABI } = contracts[chainId].usdc;
+        const _usdcContract = new Contract (usdcAddress, usdcContractABI, signer);
+        const _approveTx = await _usdcContract.approve(contracts[chainId].presale.address, _usdcAmount);
+        await _approveTx.wait ();
+        showToast("USDC successfully approved", "success");
+        // presale contract
+        const _tx = await presaleWriteContract.buyTokenWithUSDC (_usdcAmount);
+        await _tx.wait ();
+        showToast("Transaction Success", "success");
+        console.log(_tx);
       }
-      if (Number(toAmount) > Number(presaleTotal - presaleSoldMars)) {
-        throw "Insufficient token Amount to buy";
-      }
-      if (!chainId) {
-        throw "Invalid chainId";
-      }
-
-      const _amountUSDC = Math.round(Number(fromAmount) * 1e6);
-      const _amountMeme = Math.round(Number(toAmount) * 1e9);
-      const _approveTx = await constractUSDC.approve(EARLY_LIQUIDITY_ADDRESSES[chainId], _amountUSDC);
-      await _approveTx.wait();
-      showToast("Token is approved Successfully", "success");
-      const _buyTx = await contractEarlyLiquidity.buy(_amountMeme);
-      await _buyTx.wait();
-      showToast("Transaction Success", "success");
-      // console.log(_buyTx);
-
-      // await _getEarlyLiquidityInfo();
-      await _getMarsBalance();
-      await _getUSDCBalance();
+      initialize ();
     } catch (err: any) {
       if (String(err.code) === "ACTION_REJECTED") {
         showToast("User rejected transaction.", "warning");
@@ -415,7 +411,7 @@ const Buy = () => {
 
 
   React.useEffect(() => {
-    let percent = (presaleSoldMars) * 100 / presaleTotal;
+    let percent = (fundsRaised) * 100 / hardcap;
     if (isNaN(percent) || percent === Infinity) {
       percent = 0;
     }
@@ -447,7 +443,7 @@ const Buy = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [presaleSoldMars, presaleTotal]);
+  }, [fundsRaised, hardcap]);
 
   const handleClick = () => {
     if (isLoading) return;
@@ -532,8 +528,8 @@ const Buy = () => {
 
             </div>
             <div className="flex justify-between px-2 md:text-lg text-sm">
-              <span>${_renderNumber(totalCap)}</span>
-              <span>${_renderNumber(presaleMarsBalance * currentPrice)}</span>
+              <span>${_renderNumber(fundsRaised)}</span>
+              <span>${_renderNumber(hardcap)}</span>
             </div>
             <div className="progress-bar w-full">
               <div className="progress-bar-inner" ref={progressRef}></div>
@@ -579,15 +575,18 @@ const Buy = () => {
                       placeholder="0.0"
                       className="bg-transparent w-full text-xl sm:text-2xl outline-none border-none"
                       value={fromAmount}
-                      onChange={handleFromAmountChanged}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFromAmountChanged (e.target.value)}
                     />
                   </div>
-                  <h3 className="text-xl sm:text-2xl">
-                    <span className="text-[12px] md:text-lg">
-                      BALANCE:
-                    </span>{" "}
-                    {balances.usdc ? balances.usdc : 0}
-                  </h3>
+                  {
+                    address && 
+                    <h3 className="text-xl sm:text-2xl">
+                      <span className="text-[12px] md:text-lg">
+                        BALANCE:
+                      </span>{" "}
+                      { currentPayToken === 'eth' ? _renderNumber(ethBalance) : _renderNumber(usdcBalance) }
+                    </h3>
+                  }
                 </div>
               </div>
             </div>
@@ -615,12 +614,15 @@ const Buy = () => {
                       value={toAmount}
                     />
                   </div>
-                  <h3 className="text-xl sm:text-2xl">
-                    <span className="text-[12px] md:text-lg">
-                      BALANCE:
-                    </span>{" "}
-                    {balances.usdc ? balances.usdc : 0}
-                  </h3>
+                  {
+                    address &&
+                    <h3 className="text-xl sm:text-2xl">
+                      <span className="text-[12px] md:text-lg">
+                        Purchased:
+                      </span>{" "}
+                      { _renderNumber(marsPurchased) }
+                    </h3>
+                  }
                 </div>
               </div>
             </div>

@@ -48,7 +48,7 @@ export const chains: Record<number, CHAIN> = {
 export const contracts: Record<number, CONTRACT> = {
     11155111: {
         presale: {
-            address: '0xf4d8Ea687ae2C28E501Fb46a20A28E3c56C664EE',
+            address: '0x3D770dD48a9a43D0cC8455aDBF57D8B02326a50b',
             abi: PRESALE_ABI,
         },
         usdc: {

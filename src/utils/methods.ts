@@ -6,7 +6,7 @@ import { PINATA_KEY } from "@/constants/config";
  * @returns 
  */
 export const _renderNumber = (value: number | string = 0) => {
-  if (Number(value) === 0 && isNaN(Number(value))) return 0;
+  if (Number(value) === 0 && isNaN(Number(value))) return "0";
   let [num, _decimal] = String(value).split(".");
   let _num = "";
   let j = 1;
