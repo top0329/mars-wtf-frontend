@@ -8,10 +8,13 @@ import WalletConnectButton from "./connectButton";
 import Buy from "./buy";
 
 import { useRouter } from "next/navigation";
+import BuySuccess from "./congratulate";
 
 const Header = () => {
   
   const router = useRouter ();
+  //congratulations
+  const [showConfetti, setShowConfetti] = React.useState<boolean>(false);
 
   const _renderMarquee = () => (
     <Marquee speed={100} pauseOnHover gradient gradientColor="#00000044">
@@ -71,7 +74,11 @@ const Header = () => {
         />
       </div>
     </Marquee>
-  )
+  );
+
+  const onBuySuccess = (hash: string) => {
+    setShowConfetti (true);
+  }
 
   return (
     <header className="bg-cover bg-no-repeat bg-[100%] bg-[url('/img/bg1.jpg')]">
@@ -160,7 +167,7 @@ const Header = () => {
             </div>
           </div>
         </section>
-        <Buy/>
+        <Buy onSuccess={onBuySuccess}/>
         
       </section>
 
@@ -175,6 +182,7 @@ const Header = () => {
       >
         { _renderMarquee () }
       </section>
+      { showConfetti && <BuySuccess close={() => setShowConfetti (false)}/> }
     </header>
   );
 };

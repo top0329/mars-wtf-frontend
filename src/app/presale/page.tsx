@@ -9,6 +9,7 @@ import TopOwners from "@/components/presale/topOwners";
 import { useRouter } from "next/navigation";
 
 import dynamic from "next/dynamic";
+import BuySuccess from "@/components/presale/congratulate";
 
 const Sparkles = dynamic(() => import("@/components/ui/sparkle"), {ssr:false});
 
@@ -76,6 +77,7 @@ const Presale = () => {
       <Tokenomics/>
       <Marqee/>
       <TopOwners/>
+      
     </section>
   );
 };

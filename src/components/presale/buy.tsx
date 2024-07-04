@@ -3,41 +3,27 @@ import Image from "next/image";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import useActiveWeb3 from "@/hooks/useActiveWeb3";
 import { Contract, providers, ethers, utils } from 'ethers';
-import AOS from "aos";
 import {
   useConnectModal
 } from '@rainbow-me/rainbowkit';
 import useToastr from "@/hooks/useToastr";
 import Web3 from 'web3';
 import { _renderNumber } from "@/utils/methods";
-import { BASE_URL, chains, contracts } from "@/constants/config";
-import axios from "axios";
+import { chains, contracts } from "@/constants/config";
 
-
-import { MARS_WTF_ABI, EARLY_LIQUIDITY_ABI, ERC20_ABI } from '@/constants/abis';
-import { TOKEN_ADDRESSES, EARLY_LIQUIDITY_ADDRESSES, USDC_ADDRESS, } from '@/constants/config';
 import Sparkles from "../ui/sparkle";
-import { add } from "lodash";
-import { formatEther, formatUnits } from "viem";
+import { formatEther } from "viem";
+import BuySuccess from "./congratulate";
 
-const Buy = () => {
+interface IProps {
+  onSuccess: (hash: string) => void
+}
+
+const Buy = ({ onSuccess }: IProps) => {
   const progressRef = React.useRef<HTMLDivElement>(null);
   const { openConnectModal } = useConnectModal();
-  const [progress, setProgress] = React.useState<number>(95);
   const { showToast } = useToastr();
-
-
   const { address, isConnected, isConnecting, isReconnecting, connector, chainId, signer } = useActiveWeb3();// hook address, isconnected, inConnecting
-  //abis
-  const [contractMarsWTF, setContractMarsWTF] = React.useState<Contract | undefined>(undefined);
-  const [contractEarlyLiquidity, setContractEarlyLiquidity] = React.useState<Contract | undefined>(undefined);
-  const [constractUSDC, setContractUSDC] = React.useState<Contract | undefined>(undefined);
-  //contract infos
-  const [balances, setBalances] = React.useState<Record<string, number>>({});
-  const [memeBalance, setMemeBalance] = React.useState<number>(0);
-  const [presalePrice, setPresalePrice] = React.useState<number>(0);
-  const [presaleSoldMars, setPresaleSoldMars] = React.useState<number>(0);
-  const [presaleTotal, setPresaleTotal] = React.useState<number>(0);
   //fromAmount and toAmount
   const [fromAmount, setFromAmount] = React.useState<string>("");
   const [toAmount, setToAmount] = React.useState<string>("");
@@ -158,50 +144,6 @@ const Buy = () => {
   }, [distance]);
 
   /**
-   * get MarsBalance
-   * @param _contract 
-   */
-  const _getMarsBalance = async (_contract = contractMarsWTF) => {
-    try {
-      if (!_contract) throw "no contract";
-      if (!address) throw "no address";
-      const _balance = await _contract.balanceOf(address);
-      const _num = Number(_balance) / 1e9;
-      setMemeBalance(_num);
-    } catch (err) {
-
-    }
-  }
-  /**
-   * get USDC balance
-   * @param _contract 
-   */
-  const _getUSDCBalance = async (_contract = constractUSDC) => {
-    try {
-      if (!_contract) throw "no contract";
-      if (!address) throw "no address";
-      const _balance = await _contract.balanceOf(address);
-      // console.log(_balance)
-      setBalances({ ...balances, 'usdc': Number(_balance) / 1e6 });
-    } catch (err) {
-
-    }
-  }
-
-
-
-  /**
-   * when load the web3, get stable Coin balances
-   */
-  React.useEffect(() => {
-    if (address && chainId && signer) {
-      const _contractUSDC = new ethers.Contract(USDC_ADDRESS, ERC20_ABI, signer);
-      setContractUSDC(_contractUSDC);
-      _getUSDCBalance(_contractUSDC);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address, chainId, signer]);
-  /**
    * when the fromAmount is changed by user typing...
    * @param e HTMLChangeEvent
    * @returns 
@@ -240,22 +182,25 @@ const Buy = () => {
    * @returns 
    */
   const handleToAmountChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    //@ts-ignore
-    if (Number(value) < 0 || isNaN(Number(value)) || value.length > 15) {
-      setToAmount("0");
-      return;
-    }
-    setToAmount(value);
-    const _amount = Number(value) * presalePrice;
-    if (_amount === Infinity || isNaN(_amount)) {
-      setFromAmount("0.0");
-    } else {
-      setFromAmount(String(_amount));
-    }
+    // const value = e.target.value;
+    // //@ts-ignore
+    // if (Number(value) < 0 || isNaN(Number(value)) || value.length > 15) {
+    //   setToAmount("0");
+    //   return;
+    // }
+    // setToAmount(value);
+    // const _amount = Number(value) * presalePrice;
+    // if (_amount === Infinity || isNaN(_amount)) {
+    //   setFromAmount("0.0");
+    // } else {
+    //   setFromAmount(String(_amount));
+    // }
   }
 
   const handleBuyMeme = async () => {
+    onSuccess ("true")
+
+    return;
     try {
       setIsLoading(true);
       if (!presaleWriteContract) throw "no lp contract";
@@ -486,6 +431,8 @@ const Buy = () => {
       </div>
     </div>
   )
+
+
 
   return (
     <section
