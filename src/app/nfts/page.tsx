@@ -55,7 +55,7 @@ export default function Home() {
 
   React.useEffect(() => {
       initialize();
-  }, []);
+  }, [showMintModal]);
 
   return (
     <main className="min-h-screen">
@@ -126,7 +126,7 @@ export default function Home() {
 
         <div className="my-auto flex h-full w-full max-w-7xl flex-col gap-2 p-4">
       
-        <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-20">
             {nfts.map((place) => (
               <PlaceListItem key={place.id} isLoading={false} {...place} />
             ))}

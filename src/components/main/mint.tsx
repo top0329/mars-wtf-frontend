@@ -12,7 +12,6 @@ import useActiveWeb3 from '@/hooks/useActiveWeb3';
 // rainbow modal
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useBalance } from "wagmi";
-import { add } from 'lodash';
 
 interface IProps {
     close: () => void
