@@ -7,6 +7,7 @@ interface IToastContext {
   showToast: (type: string, str: string) => void;
 }
 
+
 export const ToastContext = createContext<IToastContext | undefined>(undefined);
 
 const ToastProvider = ({ children }: { children: ReactElement }) => {

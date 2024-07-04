@@ -88,7 +88,7 @@ const Header = () => {
           >
             <ul className="lg:!gap-3">
               <li>
-                <a onClick={() => router.push("/")}>
+                <a onClick={() => router.push("/")} className="cursor-pointer">
                   <img src="/img/home.svg" alt="" />
                 </a>
               </li>

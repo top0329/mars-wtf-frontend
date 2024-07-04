@@ -79,7 +79,7 @@ const WalletConnectButton = () => {
                         alt={chain.name ?? 'Chain icon'}  
                         priority={true}    
                         sizes='100vw'
-                        className="rounded-full aspect-square w-4 xxs:w-7 lg:w-10"
+                        className="rounded-full aspect-square w-4 xxs:w-7 lg:w-10 flex-none"
                       />
                     }
                     <div className="text-lg md:inline hidden lg:text-2xl text-white">{chain.name}</div>

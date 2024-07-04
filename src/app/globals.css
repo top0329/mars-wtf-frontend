@@ -15,6 +15,7 @@ body {
   --black: #212429;
   --Catfiles: "Catfiles Regular", sans-serif;
   --Orange: linear-gradient(8.6deg, #B5360C 6.57%, #DD5919 93.43%);
+  overflow-x: hidden;
 }
 
 .bounce-effect {
@@ -1530,4 +1531,26 @@ footer h3 {
       font-size: 24px;
       padding: 20px 40px;
   }
+}
+
+.clip{
+  -webkit-clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 8%, 88% 0);
+  clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 8%, 88% 0);
+}
+.timer-clip{
+  -webkit-clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 15%, 85% 0);
+  clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 15%, 85% 0);
+}
+.cool-down-clip{
+  -webkit-clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 8%, 88% 0);
+  clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 8%, 88% 0);
+}
+
+@keyframes spin {
+  to {
+      transform: rotate(360deg);
+  }
+}
+.spin {
+  animation: spin 1s linear infinite;
 }

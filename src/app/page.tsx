@@ -26,6 +26,7 @@ export default function Home() {
   React.useEffect(() => {
     AOS.init();
   }, []);
+  
   return (
     <main className="min-h-screen">
       <div className="fixed left-0 right-0 top-0 bottom-0">
@@ -38,7 +39,6 @@ export default function Home() {
           className="w-full h-full"
           particleColor="#FFFFFF"
         />
-
         <Meteors poistion="top"/>
         <Meteors poistion="left"/>
       </div>

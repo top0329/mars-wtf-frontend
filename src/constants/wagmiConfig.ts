@@ -1,11 +1,5 @@
 import {
     metaMaskWallet,
-    rainbowWallet,
-    walletConnectWallet,
-    trustWallet,
-    ledgerWallet,
-    phantomWallet,
-    okxWallet,
 } from "@rainbow-me/rainbowkit/wallets";
 import { type Chain } from 'viem'
 
@@ -22,7 +16,7 @@ const { wallets } = getDefaultWallets();
 export const chains: Chain[] = [
     // arbitrum,
     // bsc,
-    base,
+    // base,
     sepolia,
     // ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [sepolia] : []),
 ]

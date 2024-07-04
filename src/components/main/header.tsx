@@ -5,16 +5,14 @@ import { useRouter } from 'next/navigation';
 import axios from "axios";
 import dynamic from "next/dynamic";
 import { _renderNumber } from "@/utils/methods";
-const Sparkles = dynamic(() => import("@/components/ui/sparkle"), {ssr:false});
-// import Sparkles from "@/components/ui/sparkle";
+const Sparkles = dynamic(() => import("@/components/ui/sparkle"), { ssr: false });
 import { BASE_URL } from "@/constants/config";
+import FreeMint from "./mint";
 
 
 const Header = () => {
-  
-  const router = useRouter ();
 
-
+  const router = useRouter();
   const progressRef = React.useRef<HTMLDivElement>(null);
 
 
@@ -27,9 +25,9 @@ const Header = () => {
       .get(`${BASE_URL}/api/presale/1`)
       .then(({ data: { data } }) => {
         console.log(data);
-        setPresalePrice (data.price);
-        setPresaleTotal (data.total);
-        setPresaleSoldMars (data.sold);
+        setPresalePrice(data.price);
+        setPresaleTotal(data.total);
+        setPresaleSoldMars(data.sold);
       })
       .catch((err) => {
         console.log(err);
@@ -49,7 +47,7 @@ const Header = () => {
     var interval = setInterval(frame, intervalDuration);
 
     function frame() {
-      
+
       if (currentWidth >= initialWidth) {
         clearInterval(interval);
       } else {
@@ -66,11 +64,11 @@ const Header = () => {
         }
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [presaleSoldMars, presaleTotal]);
 
   return (
-    
+
     <header className="bg-cover bg-no-repeat bg-[100%] bg-[url('/img/bg1.jpg')]">
       <section className="container p-left p-right text-center">
         <div className="header-row">
@@ -83,14 +81,19 @@ const Header = () => {
             data-aos-easing="ease-in-out"
             data-aos-once="true"
           >
-            <ul>
+            <ul className="lg:!gap-3">
               <li>
-                <a href="https://twitter.com/marscoin_wtf" target="_blank">
-                  <img src="/img/twitter.svg" alt="" />
+                <a onClick={() => router.push("/")} className="cursor-pointer">
+                  <img src="/img/home.svg" alt="" />
                 </a>
               </li>
               <li>
                 <a href="https://t.me/mars_wtf" target="_blank">
+                  <img src="/img/telegram.svg" alt="" />
+                </a>
+              </li>
+              <li>
+                <a onClick={() => router.push("/nfts")}>
                   <img src="/img/telegram.svg" alt="" />
                 </a>
               </li>
@@ -117,7 +120,7 @@ const Header = () => {
             data-aos-once="true"
           >
             <Sparkles>
-              <a className="text-white btn-primary cursor-pointer" onClick={() => router.push("/presale")}>
+              <a className="text-white  cursor-pointer p-[6px] xxs:p-[10px] lg:p-[18px] text-xs xxs:text-sm lg:text-3xl rounded-md xxs:rounded-lg lg:rounded-xl bg-[#CB4913] hover:bg-[#cb6c13f1]" onClick={() => router.push("/presale")}>
                 PRESALE
               </a>
             </Sparkles>
@@ -187,20 +190,28 @@ const Header = () => {
           </div>
         </div>
       </section>
-      
-      <section className="mt-[25px]" data-aos="fade-up" data-aos-offset="200" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out" data-aos-once="true">
+
+      <section 
+        className="mt-[25px]" 
+        data-aos="fade-up" 
+        data-aos-offset="200" 
+        data-aos-delay="200" 
+        data-aos-duration="500" 
+        data-aos-easing="ease-in-out" 
+        data-aos-once="true"
+      >
         <Marquee speed={100} pauseOnHover gradient gradientColor="#00000044">
           <div className="flex gap-[100px] md:gap-[200px] py-[10px] md:py-[30px] !pr-[100px] md:!pr-[200px] bg-[#DD5919] !border-x-0 !border-[5px]" style={{ border: "5px solid #2D2D2D" }}>
-            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]"/>
-            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]"/>
-            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]"/>
-            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]"/>
-            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]"/>
-            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]"/>
-            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]"/>
-            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]"/>
-            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]"/>
-            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]"/>
+            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]" />
+            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]" />
+            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]" />
+            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]" />
+            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]" />
+            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]" />
+            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]" />
+            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]" />
+            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]" />
+            <img src="/img/base-logo.svg" alt="" className="h-[40px] md:h-[60px]" />
           </div>
         </Marquee>
       </section>

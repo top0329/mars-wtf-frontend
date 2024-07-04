@@ -6,7 +6,6 @@ import Head from 'next/head';
 import "@rainbow-me/rainbowkit/styles.css";
 import "./globals.css";
 import "aos/dist/aos.css";
-// import "./index.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
