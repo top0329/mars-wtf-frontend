@@ -198,9 +198,6 @@ const Buy = ({ onSuccess }: IProps) => {
   }
 
   const handleBuyMeme = async () => {
-    onSuccess ("true")
-
-    return;
     try {
       setIsLoading(true);
       if (!presaleWriteContract) throw "no lp contract";
