@@ -21,7 +21,6 @@ const TopOwners = () => {
     ) as CanvasRenderingContext2D;
 
     const _top10s = holders.slice(1, 11);
-    console.log(_top10s);
     const _total = _top10s.reduce(
       (accumulator: number, _user: IHolder) =>
         accumulator + Number(_user.amount),
@@ -51,7 +50,6 @@ const TopOwners = () => {
     for (let i = 0; i < 10; i++) {
       const percentage = Number(_top10s[i].amount) / _total;
 
-      console.log(percentage);
       const endAngle = startAngle + 2 * Math.PI * percentage;
 
       // Draw the border for each part
@@ -77,7 +75,6 @@ const TopOwners = () => {
     axios
       .get(`https://marswtf-backend.onrender.com/api/holders`)
       .then(({ data: { holders } }) => {
-        console.log(holders);
         setHolders(holders);
       })
       .catch((err) => {

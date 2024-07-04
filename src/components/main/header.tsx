@@ -92,11 +92,6 @@ const Header = () => {
                   <img src="/img/telegram.svg" alt="" />
                 </a>
               </li>
-              <li>
-                <a onClick={() => router.push("/nfts")}>
-                  <img src="/img/telegram.svg" alt="" />
-                </a>
-              </li>
             </ul>
           </div>
           <div

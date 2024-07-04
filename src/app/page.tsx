@@ -13,11 +13,13 @@ import RoadMap from "@/components/main/roadMap";
 import FAQ from "@/components/main/faq";
 import Footer from "@/components/main/footer";
 import Address from "@/components/main/address";
+import NFTCard from "@/components/main/nft";
 
 const SparklesCore = dynamic(() => import("@/components/ui/sparkles"), { ssr: false });
 const Meteors = dynamic(() => import("@/components/ui/meteors"), {ssr: false});
 
 import { useRouter } from "next/navigation";
+import Sparkles from "@/components/ui/sparkle";
 
 export default function Home() {
 
@@ -56,11 +58,14 @@ export default function Home() {
         <img src="/img/presalelive.png" alt="" />
       </section>
       <Tokenomics />
-      <div className="button-large relative z-30 ">
-        <a onClick={() => router.push("/presale")} className="btn-primary text-white mb-24 cursor-pointer">
-          PRESALE
-        </a>
-      </div>
+      <NFTCard/>
+      {/* <div className="button-large relative z-30 ">
+        <Sparkles>
+          <a onClick={() => router.push("/nfts")} className="btn-primary text-white mb-24 cursor-pointer">
+            Mars NFT
+          </a>
+        </Sparkles>
+      </div> */}
       <section data-aos="fade-up" data-aos-offset="200" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out" data-aos-once="true">
         <Marquee direction="right" speed={100} pauseOnHover gradient gradientColor="#00000044">
           <div className="flex gap-[100px] md:gap-[200px] py-[10px] md:py-[30px] !pr-[100px] md:!pr-[200px] bg-[#DD5919] !border-x-0 !border-[5px]" style={{ border: "5px solid #2D2D2D" }}>

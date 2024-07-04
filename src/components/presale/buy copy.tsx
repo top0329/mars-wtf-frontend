@@ -2,15 +2,14 @@ import React from "react";
 import Image from "next/image";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import useActiveWeb3 from "@/hooks/useActiveWeb3";
-import { Contract, providers, ethers, utils } from 'ethers';
-import AOS from "aos";
+import { Contract, providers, ethers } from 'ethers';
 import {
   useConnectModal
 } from '@rainbow-me/rainbowkit';
 import useToastr from "@/hooks/useToastr";
 import Web3 from 'web3';
 import { _renderNumber } from "@/utils/methods";
-import { BASE_URL, chains, contracts } from "@/constants/config";
+import { BASE_URL } from "@/constants/config";
 import axios from "axios";
 
 
@@ -41,126 +40,22 @@ const Buy = () => {
   const [toAmount, setToAmount] = React.useState<string>("");
   const [showTokenSelector, setShowTokenSelector] = React.useState<boolean>(false);
   const [currentPayToken, setCurrentPayToken] = React.useState<string>("eth");
-  //presale states
-  const [totalCap, setTotalCap] = React.useState<number>(0);
-  const [currentPrice, setCurrentPrice] = React.useState<number>(0);
-  const [presaleMarsBalance, setPresaleMarsBalance] = React.useState<number>(0);
-  //time calculation
-  const timerRef = React.useRef<ReturnType<typeof setInterval> | null>(null);
-  const [endTime, setEndTime] = React.useState<number>(0);
-  const [distance, setDistance] = React.useState<number>(0);
-  //loading
+
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  const initialize = async (_address?: string, _provider?: any) => {
-    const chainId = 11155111;
-    const _chain = chains[chainId];
-    // web3 provider
-    const provider = _provider ?? new providers.JsonRpcProvider(_chain.rpc);
-    // presale contract
-    const { address: presaleContractAddress, abi: presaleContractABI } = contracts[chainId].presale;
-    const _presaleContract = new Contract(presaleContractAddress, presaleContractABI, provider);
-    // usdc contract
-    const { address: usdcContractAddress, abi: usdcContractABI } = contracts[chainId].usdc;
-    const _usdcContract = new Contract(usdcContractAddress, usdcContractABI, provider);
-    // mars contract
-    const { address: marsContractAddress, abi: marsContractABI } = contracts[chainId].mars;
-    const _marsContract = new Contract(marsContractAddress, marsContractABI, provider);
-
-    const [
-      _endTime,
-      _totalCap,
-      _currentPrice,
-      _presaleBalance,
-    ] = await Promise.all ([
-      _presaleContract.endTimeStamp (),
-      _presaleContract.totalCap (),
-      _presaleContract.getCurrentTokenPrice (),
-      _marsContract.balanceOf(contracts[chainId].presale.address)
-    ]);
-
-    setEndTime (Number(_endTime));
-    setTotalCap (Number(utils.formatUnits(_totalCap, 6)));
-    setCurrentPrice (Number(utils.formatUnits(_currentPrice, 6)));
-    setPresaleMarsBalance(Number(utils.formatUnits(_presaleBalance, 18)));
-
-    console.log({
-      remain: Number(_endTime),
-      totalCap: Number(utils.formatUnits(_totalCap, 6)),
-      presaleBalance: Number(utils.formatUnits(_presaleBalance, 18))
-    })
-
-    // if (!_address) {
-    //   const [
-    //     _tokenNumber,
-    //     _mintFee
-    //   ] = await Promise.all([
-    //     _contract.tokenNumber(),
-    //     _contract.mintFee()
-    //   ]);
-    //   // setNftNumber (Number(_tokenNumber));
-    //   // setCurrentFee (Number(utils.formatEther(_mintFee)));
-    // } else {
-    //   const [
-    //     _tokenNumber,
-    //     _mintFee,
-    //     _myFreeMintCount,
-    //     _myFeeMintCount
-    //   ] = await Promise.all([
-    //     _contract.tokenNumber(),
-    //     _contract.mintFee(),
-    //     _contract.freeCreations(_address),
-    //     _contract.feeCreations(_address)
-    //   ]);
-      // console.log({
-      //   myFreeMintCount
-      // })
-      // setNftNumber (Number(_tokenNumber));
-      // setCurrentFee (Number(utils.formatEther(_mintFee)));
-      // setMyFreeMintCount (Number(_myFreeMintCount));
-      // setMyFeeMintCount (Number(_myFeeMintCount));
-    // }
-  }
-
   React.useEffect(() => {
-    timerRef.current = setInterval(async () => {
-      const _now = new Date().getTime();
-      const _distance = endTime - Math.floor(_now / 1000);
-      setDistance(_distance);
-      if ((_distance < 0 || isNaN(_distance)) && timerRef.current) {
-        clearInterval(timerRef.current);
-      }
-    }, 1000);
-    return () => {
-      //@ts-ignore
-      clearInterval(timerRef.current);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [endTime]);
-
-  
-  const [days, hours, minutes, seconds] = React.useMemo(() => {
-    let days: string | number = Math.floor(distance / (60 * 60 * 24));
-    let hours: string | number = Math.floor(
-      (distance % (60 * 60 * 24)) / (60 * 60)
-    );
-    let minutes: string | number = Math.floor((distance % (60 * 60)) / 60);
-    let seconds: string | number = Math.floor(distance % 60);
-
-    days = days > 9 ? days : days > 0 ? "0" + days : "0";
-    hours = hours > 9 ? hours : hours > 0 ? "0" + hours : "0";
-    minutes = minutes > 9 ? minutes : minutes > 0 ? "0" + minutes : "0";
-    seconds = seconds > 9 ? seconds : seconds > 0 ? "0" + seconds : "0";
-
-    return [days, hours, minutes, seconds];
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [distance]);
-
-  React.useEffect(() => {
-    if (address && signer) {
-      initialize(address, signer);
-    }
-  }, [address, signer]);
+    axios
+      .get(`${BASE_URL}/api/presale/1`)
+      .then(({ data: { data } }) => {
+        console.log(data);
+        setPresalePrice(data.price);
+        setPresaleTotal(data.total);
+        setPresaleSoldMars(data.sold);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [])
 
   /**
    * get MarsBalance
@@ -186,13 +81,38 @@ const Buy = () => {
       if (!_contract) throw "no contract";
       if (!address) throw "no address";
       const _balance = await _contract.balanceOf(address);
-      // console.log(_balance)
+      console.log(_balance)
       setBalances({ ...balances, 'usdc': Number(_balance) / 1e6 });
     } catch (err) {
 
     }
   }
-  
+  /**
+   * get early LP info, 
+   * @param _contract marsWTF Contract
+   * @param _lpContract earlyLiquidity Contract
+   */
+  const _getEarlyLiquidityInfo = async (_contract = contractMarsWTF, _lpContract = contractEarlyLiquidity) => {
+    try {
+      if (!_contract) throw "no contract";
+      if (!chainId) throw "invalid chainId";
+      // const _balance = await _contract.balanceOf(EARLY_LIQUIDITY_ADDRESSES[chainId]);
+      // const num = Number(_balance)/1e9;
+      // console.log("presale balance -----------", num);
+      // setPresaleBalance(num); //presale amount
+
+      if (!_lpContract) throw "no lp contract";
+      const _totalMarsWTFSold = await _lpContract.getTotalMarsWTFSold();
+      const _presalePrice = await _lpContract.getPresalePrice();
+      console.log('presale price ------>', Number(_presalePrice));
+      setPresaleSoldMars(_totalMarsWTFSold / 1e9);
+      setPresalePrice(Number(_presalePrice / 1e6));
+
+      await axios.put(`${BASE_URL}/api/presale`, { price: Number(_presalePrice / 1e6), sold: Number(_totalMarsWTFSold / 1e9), stage: 1 });
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   /**
    * get Contract data when first load
@@ -213,7 +133,7 @@ const Buy = () => {
         signer
       );
 
-      // _getEarlyLiquidityInfo(_contractMarsWTF, _contractEarlyLiquidity);
+      _getEarlyLiquidityInfo(_contractMarsWTF, _contractEarlyLiquidity);
       setContractEarlyLiquidity(_contractEarlyLiquidity);
     } else {
       setBalances({});
@@ -301,9 +221,9 @@ const Buy = () => {
       const _buyTx = await contractEarlyLiquidity.buy(_amountMeme);
       await _buyTx.wait();
       showToast("Transaction Success", "success");
-      // console.log(_buyTx);
+      console.log(_buyTx);
 
-      // await _getEarlyLiquidityInfo();
+      await _getEarlyLiquidityInfo();
       await _getMarsBalance();
       await _getUSDCBalance();
     } catch (err: any) {
@@ -438,7 +358,7 @@ const Buy = () => {
           currentWidth = initialWidth;
         }
         if (!progressRef.current) return;
-        // console.log(initialWidth, currentWidth)
+        console.log(initialWidth, currentWidth)
         progressRef.current.style.width = currentWidth + "%";
         if (initialWidth > 0) {
           progressRef.current.style.background =
@@ -460,7 +380,7 @@ const Buy = () => {
 
   const onPayTokenChange = (token: string) => {
     setCurrentPayToken(token);
-    setShowTokenSelector(false);
+    setShowTokenSelector (false);
   }
 
   const _renderTokenSelector = () => (
@@ -514,33 +434,33 @@ const Buy = () => {
             <h3 className="text-white md:text-xl text-sm text-center">Time Remain</h3>
             <div className="grid w-full grid-cols-4 gap-1 sm:gap-4">
               <div className="sm:text-4xl xs:text-3xl text-xl flex flex-col gap-2 justify-center items-center bg-gradient-to-br to-[#ac4925a9] from-[#C04010] px-2 sm:py-6 xs:py-4 py-1 rounded-lg timer-clip">
-                <span className="mt-3">{days}</span>
+                <span className="mt-3">123</span>
                 <span className="text-xs xs:text-sm sm:text-lg">DAYS</span>
               </div>
               <div className="sm:text-4xl xs:text-3xl text-xl flex flex-col gap-2 justify-center items-center bg-gradient-to-br to-[#ac4925a9] from-[#C04010] px-2 sm:py-6 xs:py-4 py-1 rounded-lg timer-clip">
-                <span className="mt-3">{hours}</span>
+                <span className="mt-3">23</span>
                 <span className="text-xs xs:text-sm sm:text-lg">HOURS</span>
               </div>
               <div className="sm:text-4xl xs:text-3xl text-xl flex flex-col gap-2 justify-center items-center bg-gradient-to-br to-[#ac4925a9] from-[#C04010] px-2 sm:py-6 xs:py-4 py-1 rounded-lg timer-clip">
-                <span className="mt-3">{minutes}</span>
+                <span className="mt-3">22</span>
                 <span className="text-xs xs:text-sm sm:text-lg">MINS</span>
               </div>
               <div className="sm:text-4xl xs:text-3xl text-xl flex flex-col gap-2 justify-center items-center bg-gradient-to-br to-[#ac4925a9] from-[#C04010] px-2 sm:py-6 xs:py-4 py-1 rounded-lg timer-clip">
-                <span className="mt-3">{seconds}</span>
+                <span className="mt-3">11</span>
                 <span className="text-xs xs:text-sm sm:text-lg">SECS</span>
               </div>
 
             </div>
             <div className="flex justify-between px-2 md:text-lg text-sm">
-              <span>${_renderNumber(totalCap)}</span>
-              <span>${_renderNumber(presaleMarsBalance * currentPrice)}</span>
+              <span>${_renderNumber(presaleSoldMars)}</span>
+              <span>${_renderNumber(presaleTotal)}</span>
             </div>
             <div className="progress-bar w-full">
               <div className="progress-bar-inner" ref={progressRef}></div>
             </div>
             <div className="flex gap-2 justify-center items-center px-1">
               <div className="bg-white h-[2px] w-full"></div>
-              <h3 className="text-sm sm:text-xl text-center text-nowrap">1 mars = ${currentPrice}</h3>
+              <h3 className="text-sm sm:text-xl text-center text-nowrap">1 mars = ${presalePrice}</h3>
               <div className="bg-white h-[2px] w-full"></div>
             </div>
           </div>
@@ -595,15 +515,15 @@ const Buy = () => {
               <h3 className="text-xl sm:text-3xl">YOU RECEIVE</h3>
               <div className="flex gap-1 sm:gap-3 items-center">
                 <div className="flex gap-1 flex-none items-center relative">
-                  <Image
-                    src={"/img/wtf.png"}
-                    width={0}
-                    alt=""
-                    height={0}
-                    sizes="100vw"
-                    className="sm:w-[70px] w-[45px] object-contain hover:opacity-60 cursor-pointer"
-                    onClick={addToken}
-                  />
+                      <Image
+                        src={"/img/wtf.png"}
+                        width={0}
+                        alt=""
+                        height={0}
+                        sizes="100vw"
+                        className="sm:w-[70px] w-[45px] object-contain hover:opacity-60 cursor-pointer"
+                        onClick={addToken}
+                      />
                   <div className="w-6 sm:w-9"></div>
                 </div>
                 <div className="flex flex-col w-full justify-center item-center">

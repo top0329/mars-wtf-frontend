@@ -1,5 +1,9 @@
 import type { CHAIN, CONTRACT } from "@/types/chain";
 import NFT_ABI from '@/constants/abis/marsNft.json';
+import PRESALE_ABI from '@/constants/abis/presale.json';
+import MARS_ABI from '@/constants/abis/mars.json';
+import USDC_ABI from '@/constants/abis/usdc.json';
+
 export const PINATA_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI5NDlhYmU4Ni1lZTE5LTRiNTgtYjMwMS0wYzcyYzNhMGJjOWMiLCJlbWFpbCI6IncuYm9ubmVzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJmNmVhMzViMTg3MmViMjM5OWU1ZCIsInNjb3BlZEtleVNlY3JldCI6ImNiMWVmYjQyZjVmOTFjZDgzYzhhNWRhMmEyYWU5YzIzYzM0YzE0ZDU4OWRhODI3NjljZTg3MGJmNWU2NGMyOWYiLCJpYXQiOjE2OTQ2NjI5Nzd9.sUhRsFf1vXuCAvI8Sgl_K7gzUaASXGpGe5nST4rz8uo"
 
 export const NetworkId = {
@@ -44,16 +48,16 @@ export const chains: Record<number, CHAIN> = {
 export const contracts: Record<number, CONTRACT> = {
     11155111: {
         presale: {
-            address: '',
-            abi: '',
+            address: '0xf4d8Ea687ae2C28E501Fb46a20A28E3c56C664EE',
+            abi: PRESALE_ABI,
         },
         usdc: {
-            address: '',
-            abi: '',
+            address: '0xA1f5aE420cCAAadA3ddF121afA72E22483b538B9',
+            abi: USDC_ABI,
         },
         mars: {
-            address: '',
-            abi: '',
+            address: '0x5C2A60632BeaEb5aeF7F0D82088FC620BEC5b376',
+            abi: MARS_ABI,
         },
         nft: {
             address: '0xA9F7B854c755369c330F269e3bF6bb22E0BE2517',

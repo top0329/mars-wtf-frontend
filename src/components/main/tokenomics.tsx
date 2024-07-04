@@ -64,12 +64,12 @@ const Tokenomics = () => {
           <div className="donut-chart-ui">
             <div
               className="left-list"
-              // data-aos="fade-right"
-              // data-aos-offset="200"
-              // data-aos-delay="200"
-              // data-aos-duration="500"
-              // data-aos-easing="ease-in-out"
-              // data-aos-once="true"
+              data-aos="fade-right"
+              data-aos-offset="200"
+              data-aos-delay="200"
+              data-aos-duration="500"
+              data-aos-easing="ease-in-out"
+              data-aos-once="true"
             >
               <ul id="legendLeft">
                 <li>
@@ -92,12 +92,12 @@ const Tokenomics = () => {
             </div>
             <div
               className="donut"
-              // data-aos="fade-up"
-              // data-aos-offset="200"
-              // data-aos-delay="200"
-              // data-aos-duration="500"
-              // data-aos-easing="ease-in-out"
-              // data-aos-once="true"
+              data-aos="fade-up"
+              data-aos-offset="200"
+              data-aos-delay="200"
+              data-aos-duration="500"
+              data-aos-easing="ease-in-out"
+              data-aos-once="true"
             >
               <div className="canvas-logo">
                 <img src="img/logo-mars.png" alt="" />
@@ -106,12 +106,12 @@ const Tokenomics = () => {
             </div>
             <div
               className="right-list"
-              // data-aos="fade-left"
-              // data-aos-offset="200"
-              // data-aos-delay="200"
-              // data-aos-duration="500"
-              // data-aos-easing="ease-in-out"
-              // data-aos-once="true"
+              data-aos="fade-left"
+              data-aos-offset="200"
+              data-aos-delay="200"
+              data-aos-duration="500"
+              data-aos-easing="ease-in-out"
+              data-aos-once="true"
             >
               <ul id="legendRight">
                 <li>
@@ -135,12 +135,12 @@ const Tokenomics = () => {
           </div>
           <div
             className="chart-bottom-content"
-            // data-aos="fade-down"
-            // data-aos-offset="200"
-            // data-aos-delay="200"
-            // data-aos-duration="500"
-            // data-aos-easing="ease-in-out"
-            // data-aos-once="true"
+            data-aos="fade-down"
+            data-aos-offset="200"
+            data-aos-delay="200"
+            data-aos-duration="500"
+            data-aos-easing="ease-in-out"
+            data-aos-once="true"
           >
             <ul>
               <li>Symbol: MARSWTF</li>

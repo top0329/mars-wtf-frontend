@@ -6,6 +6,9 @@ import Head from 'next/head';
 import "@rainbow-me/rainbowkit/styles.css";
 import "./globals.css";
 import "aos/dist/aos.css";
+import 'swiper/css';
+import 'swiper/css/effect-cards';
+
 
 const inter = Inter({ subsets: ["latin"] });
 

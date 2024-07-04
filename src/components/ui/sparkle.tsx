@@ -41,7 +41,6 @@ const SparkleInstance = ({ color, size, style }: { color: string, size: number, 
 );
 
 function Sparkles({ children, color = DEFAULT_COLOR, top = 0, left = 0, right = 100, bottom = 100, interval = 500 }: { children: any, color?: string, top?: number, left?: number, right?: number, bottom?: number, interval?: number }) {
-
   const [sparkles, setSparkles] = React.useState<Sparkle[]>([1,2,3].map(i => generateSparkle(color, top, left, right, bottom)));
 
   useRandomInterval(() => {

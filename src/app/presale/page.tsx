@@ -19,9 +19,9 @@ const Presale = () => {
 
   const router = useRouter ();
 
-  // React.useEffect(() => {
-  //   AOS.init();
-  // }, []);
+  React.useEffect(() => {
+    AOS.init();
+  }, []);
 
   const Lecture = () => (
     <section
@@ -74,7 +74,7 @@ const Presale = () => {
       <Header />
       <Lecture/>
       <Tokenomics/>
-      {/* <Marqee/> */}
+      <Marqee/>
       <TopOwners/>
     </section>
   );

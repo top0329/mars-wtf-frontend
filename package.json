@@ -34,6 +34,7 @@
     "react-fast-marquee": "^1.6.4",
     "react-hot-toast": "^2.4.1",
     "react-use": "^17.5.0",
+    "swiper": "^11.1.4",
     "tailwind-merge": "^2.2.2",
     "viem": "^2.9.9",
     "wagmi": "^2.10.9",

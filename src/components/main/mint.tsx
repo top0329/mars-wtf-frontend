@@ -54,7 +54,7 @@ const FreeMint = ({ close }: IProps) => {
                 _mintFee
             ] = await Promise.all([
                 _contract.tokenNumber (),
-                _contract.mintFee ()
+                _contract.getCurrentMintFee ()
             ]);
             setNftNumber (Number(_tokenNumber));
             setCurrentFee (Number(utils.formatEther(_mintFee)));
@@ -66,7 +66,7 @@ const FreeMint = ({ close }: IProps) => {
                 _myFeeMintCount
             ] = await Promise.all([
                 _contract.tokenNumber (),
-                _contract.mintFee (),
+                _contract.getCurrentMintFee (),
                 _contract.freeCreations(_address),
                 _contract.feeCreations(_address)
             ]);

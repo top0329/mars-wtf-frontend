@@ -25,3 +25,10 @@ export interface CONTRACT {
         abi: any
     }
 }
+
+export type NFT = {
+    assetType: string,
+    description: string,
+    name: string,
+    image: string
+}
