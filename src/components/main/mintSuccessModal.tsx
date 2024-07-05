@@ -8,7 +8,7 @@ import useWindowSize from "react-use/lib/useWindowSize";
 interface IProps {
     name: string,
     description: string,
-    preview: string,
+    image: string,
     hash: string,
     close: () => void
 }
@@ -27,7 +27,7 @@ const MintSuccessModal = (props: IProps) => {
                         <div className='md:text-xl text-sm flex justify-center gap-3 items-center'><Icon icon="icon-park-outline:success-picture" className='text-2xl'/>Mint Success</div>
                         <div className='bg-[#10113f] w-2/3 mx-auto mt-3 rounded-xl flex justify-center items-center p-6'>
                             <img
-                                src={props.preview ? props.preview : "/img/martian.png"}
+                                src={props.image}
                                 className='rounded-xl w-full h-full'
                             />
                         </div>

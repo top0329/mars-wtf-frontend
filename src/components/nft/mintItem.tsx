@@ -17,11 +17,12 @@ export type PlaceListItemProps = Omit<React.HTMLAttributes<HTMLDivElement>, "id"
   isPopular?: boolean;
   isLoading?: boolean;
   removeWrapper?: boolean;
+  onMint: (_nft: NFT) => void;
 } & NFT;
 
 const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
   (
-    {name, isLoading, description, image, removeWrapper, className, ...props},
+    {name, _id, isLoading, onMint, description, image, removeWrapper, className, ...props},
     ref,
   ) => {
     const [isLiked, setIsLiked] = React.useState(false);
@@ -54,12 +55,16 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
             width={16}
           />
         </Button>
-       
-        <div className='w-full aspect-square relative overflow-hidden rounded-2xl flex items-center cursor-pointer nft-item'>
+
+        <div className='w-full aspect-square relative overflow-hidden rounded-2xl flex items-center cursor-pointer mint-item'>
           <LazyImage
             src={image}
           />
+          <Button onClick={() => onMint ({ _id, name, description, image })} className="mint-btn hidden rounded-2xl bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            mint
+          </Button>
         </div>
+        
 
         <div className="mt-1 flex flex-col gap-2 px-1">
           {isLoading ? (

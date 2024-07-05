@@ -5,6 +5,8 @@ import MARS_ABI from '@/constants/abis/mars.json';
 import USDC_ABI from '@/constants/abis/usdc.json';
 
 export const PINATA_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI5NDlhYmU4Ni1lZTE5LTRiNTgtYjMwMS0wYzcyYzNhMGJjOWMiLCJlbWFpbCI6IncuYm9ubmVzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJmNmVhMzViMTg3MmViMjM5OWU1ZCIsInNjb3BlZEtleVNlY3JldCI6ImNiMWVmYjQyZjVmOTFjZDgzYzhhNWRhMmEyYWU5YzIzYzM0YzE0ZDU4OWRhODI3NjljZTg3MGJmNWU2NGMyOWYiLCJpYXQiOjE2OTQ2NjI5Nzd9.sUhRsFf1vXuCAvI8Sgl_K7gzUaASXGpGe5nST4rz8uo"
+export const SERVER_URL = 'https://mars-backend-qjp1.onrender.com/api'
+// export const SERVER_URL = 'http://localhost:5050/api'
 
 export const NetworkId = {
     SEPOLIA: 11155111,

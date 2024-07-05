@@ -1608,3 +1608,16 @@ footer h3 {
 .swiper-slide:nth-child(10n) {
   background-color: rgb(54, 94, 77);
 }
+
+.mint-item:hover .mint-btn{
+  display: block!important;
+}
+
+.mint-item:hover .nft {
+  transform: scale(1.2);
+  filter: blur(2px);
+}
+
+.nft-item:hover .nft {
+  transform: scale(1.2);
+}
