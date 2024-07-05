@@ -52,6 +52,7 @@ const Tokenomics = () => {
 
       startAngle = endAngle;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [progress]);
 
   return (

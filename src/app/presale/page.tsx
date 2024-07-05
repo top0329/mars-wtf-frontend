@@ -22,6 +22,7 @@ const Presale = () => {
 
   React.useEffect(() => {
     AOS.init();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const Lecture = () => (

@@ -27,6 +27,7 @@ export default function Home() {
 
   React.useEffect(() => {
     AOS.init();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const initialize = async () => {
@@ -64,6 +65,7 @@ export default function Home() {
 
   React.useEffect(() => {
     initialize();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showMintModal]);
 
   return (

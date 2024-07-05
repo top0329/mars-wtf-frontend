@@ -32,6 +32,7 @@ const Header = () => {
       .catch((err) => {
         console.log(err);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   React.useEffect(() => {
@@ -186,13 +187,13 @@ const Header = () => {
         </div>
       </section>
 
-      <section 
-        className="mt-[25px]" 
-        data-aos="fade-up" 
-        data-aos-offset="200" 
-        data-aos-delay="200" 
-        data-aos-duration="500" 
-        data-aos-easing="ease-in-out" 
+      <section
+        className="mt-[25px]"
+        data-aos="fade-up"
+        data-aos-offset="200"
+        data-aos-delay="200"
+        data-aos-duration="500"
+        data-aos-easing="ease-in-out"
         data-aos-once="true"
       >
         <Marquee speed={100} pauseOnHover gradient gradientColor="#00000044">

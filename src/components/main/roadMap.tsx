@@ -53,6 +53,7 @@ const RoadMap = () => {
 
       startAngle = endAngle + gap;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [progress]);
 
   return (

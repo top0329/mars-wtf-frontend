@@ -69,6 +69,7 @@ const TopOwners = () => {
 
       startAngle = endAngle;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [holders]);
 
   React.useEffect(() => {
@@ -80,6 +81,7 @@ const TopOwners = () => {
       .catch((err) => {
         console.log(err);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 

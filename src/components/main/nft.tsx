@@ -37,6 +37,7 @@ const NFTCard = () => {
 
     React.useEffect(() => {
         initialize();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -109,7 +110,7 @@ const NFTCard = () => {
                 </div>
             </div>
             <Sparkles>
-                <a onClick={() => router.push("/nfts")} className="btn-primary text-white mb-24 cursor-pointer mt-10">
+                <a onClick={() => router.push("/nft")} className="btn-primary text-white mb-24 cursor-pointer mt-10">
                     Mars NFT
                 </a>
             </Sparkles>

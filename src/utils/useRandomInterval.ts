@@ -6,6 +6,7 @@ export const useRandomInterval = (callback: () => void, minDelay: number, maxDel
   const savedCallback = React.useRef(callback);
   React.useEffect(() => {
     savedCallback.current = callback;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callback]);
   React.useEffect(() => {
     let isEnabled =
@@ -22,6 +23,7 @@ export const useRandomInterval = (callback: () => void, minDelay: number, maxDel
     }
     //@ts-ignore
     return () => clearTimeout(timeoutId.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [minDelay, maxDelay]);
   const cancel = React.useCallback(function () {
     //@ts-ignore

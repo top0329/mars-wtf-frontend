@@ -92,6 +92,7 @@ const Buy = ({ onSuccess }: IProps) => {
     const _presaleReadContract = new Contract(presaleContractAddress, presaleContractABI, provider);
     setPresaleReadContract(_presaleReadContract);
     initialize(_presaleReadContract);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /**
@@ -175,6 +176,7 @@ const Buy = ({ onSuccess }: IProps) => {
 
   React.useEffect(() => {
     handleFromAmountChanged (fromAmount);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPayToken]);
   /**
    * when the toAmount is changed by user typing...

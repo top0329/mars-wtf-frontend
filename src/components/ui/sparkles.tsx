@@ -36,6 +36,7 @@ const SparklesCore = (props: ParticlesProps) => {
     }).then(() => {
       setInit(true);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const controls = useAnimation();
 

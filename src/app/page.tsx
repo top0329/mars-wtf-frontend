@@ -27,6 +27,7 @@ export default function Home() {
 
   React.useEffect(() => {
     AOS.init();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   return (
@@ -61,7 +62,7 @@ export default function Home() {
       <NFTCard/>
       {/* <div className="button-large relative z-30 ">
         <Sparkles>
-          <a onClick={() => router.push("/nfts")} className="btn-primary text-white mb-24 cursor-pointer">
+          <a onClick={() => router.push("/nft")} className="btn-primary text-white mb-24 cursor-pointer">
             Mars NFT
           </a>
         </Sparkles>

@@ -27,12 +27,13 @@ export default function Home() {
 
     React.useEffect(() => {
         AOS.init();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const intialize = async () => {
         try {
             setIsLoading (true);
-            const data = await axios.get(`${SERVER_URL}/nft/nfts`);
+            const data = await axios.get(`${SERVER_URL}/nft/nft`);
             setNfts (data.data);
         } catch (err) {
 
@@ -42,6 +43,7 @@ export default function Home() {
     }
     React.useEffect(() => {
         intialize ();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 

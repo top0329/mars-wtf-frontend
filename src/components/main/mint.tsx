@@ -81,11 +81,13 @@ const FreeMint = ({ close, data, intialize }: IProps) => {
         if (address && signer) {
             initialize (address, signer);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [address, signer]);
 
 
     React.useEffect(() => {
         initialize ();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     
@@ -185,6 +187,7 @@ const FreeMint = ({ close, data, intialize }: IProps) => {
         if (txHash) {
             setLoading (false);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [txHash]);
 
     const _renderProgress = () => (
