@@ -355,7 +355,7 @@ const Buy = ({ onSuccess }: IProps) => {
 
 
   React.useEffect(() => {
-    let percent = (fundsRaised < hardcap ? fundsRaised * 100 / hardcap : 100);
+    let percent = (fundsRaised <= hardcap ? fundsRaised * 100 / hardcap : 100);
     if (isNaN(percent) || percent === Infinity) {
       percent = 0;
     }
