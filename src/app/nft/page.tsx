@@ -100,7 +100,7 @@ export default function Home() {
                     <img src="/img/home.svg" alt="" />
                   </a>
                 </li>
-                <a className="text-white  cursor-pointer text-[10px] xxs:text-xs lg:text-3xl rounded-md xxs:rounded-lg lg:rounded-xl bg-[#CB4913] hover:bg-[#cb6c13f1]" onClick={() => setShowMintModal(true)}>
+                <a className="text-white  cursor-pointer text-[10px] xxs:text-xs lg:text-3xl rounded-md xxs:rounded-lg lg:rounded-xl bg-[#CB4913] hover:bg-[#cb6c13f1]" onClick={() => router.push('/nft/mint')}>
                   MINT
                 </a>
               </ul>
