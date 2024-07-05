@@ -137,8 +137,8 @@ const FreeMint = ({ close, data, intialize }: IProps) => {
             setTxHash (_tx.hash);
             showToast ("Mars NFT has been minted successfully", "success");
             // refresh
+            await axios.put(`${SERVER_URL}/nft/mint/${data._id}`);
             intialize ();
-            axios.put(`${SERVER_URL}/nft/mint/${data._id}`);
         } catch (err) {
             if (String(err).includes("user rejected transaction")) {
                 showToast ("Rject the transaction", "warning");
