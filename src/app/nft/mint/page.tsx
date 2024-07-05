@@ -33,7 +33,7 @@ export default function Home() {
     const intialize = async () => {
         try {
             setIsLoading (true);
-            const data = await axios.get(`${SERVER_URL}/nft/nft`);
+            const data = await axios.get(`${SERVER_URL}/nft/nfts`);
             setNfts (data.data);
         } catch (err) {
 
