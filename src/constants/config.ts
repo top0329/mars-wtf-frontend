@@ -18,10 +18,7 @@ export const BASE_URL = 'https://marswtf-backend.onrender.com';
 // export const BASE_URL = 'http://localhost:5000';
 export const USDC_ADDRESS = "0x94a9D9AC8a22534E3FaCa9F4e7F2E2cf85d5E4C8";
 
-export const EARLY_LIQUIDITY_ADDRESSES = {
-    [NetworkId.BASE]: "0x21E17d7D4f6B6e4116591730CEec05EC63cF9924",//verified & adjusted
-    [NetworkId.SEPOLIA]: "0xB3C3cc967e8B0eCEF0349207B0C4e8CfCff93AB3"//verified
-};
+
 export const TOKEN_ADDRESSES = {
     [NetworkId.BASE]: "0xD76e5a10702156c4155443EC93Ff634b6F12a312",//verified & adjusted
     [NetworkId.SEPOLIA]: "0x10B70F96Eccba753231D853157386579301622eF"//verified

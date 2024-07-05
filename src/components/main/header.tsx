@@ -6,8 +6,9 @@ import axios from "axios";
 import dynamic from "next/dynamic";
 import { _renderNumber } from "@/utils/methods";
 const Sparkles = dynamic(() => import("@/components/ui/sparkle"), { ssr: false });
-import { BASE_URL } from "@/constants/config";
+import { BASE_URL, chains, contracts } from "@/constants/config";
 import FreeMint from "./mint";
+import { Contract, providers, utils } from "ethers";
 
 
 const Header = () => {
@@ -16,29 +17,49 @@ const Header = () => {
   const progressRef = React.useRef<HTMLDivElement>(null);
 
 
-  const [presalePrice, setPresalePrice] = React.useState<number>(0);
   const [presaleSoldMars, setPresaleSoldMars] = React.useState<number>(0);
   const [presaleTotal, setPresaleTotal] = React.useState<number>(0);
 
-  React.useEffect(() => {
-    axios
-      .get(`${BASE_URL}/api/presale/1`)
-      .then(({ data: { data } }) => {
-        console.log(data);
-        setPresalePrice(data.price);
-        setPresaleTotal(data.total);
-        setPresaleSoldMars(data.sold);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const [currentPrice, setCurrentPrice] = React.useState<number>(0);
+  const [soldAmount, setSoldAmount] = React.useState<number>(0);
+  const [saleAmount, setSaleAmount] = React.useState<number>(0);
+
+  const initialize = async (_contract: Contract) => {
+    if (!_contract) return;
+    // view only
+    const [
+      _sold,
+      _sale,
+      _currentPrice,
+      // _presaleBalance,
+    ] = await Promise.all([
+      _contract.soldAmount(),
+      _contract.presaleAmount(),
+      _contract.getCurrentTokenPrice(),
+    ]);
+    setSoldAmount(Number(utils.formatEther(_sold)));
+    setSaleAmount(Number(utils.formatEther(_sale)));
+    setCurrentPrice(Number(utils.formatUnits(_currentPrice, 6)));
+  }
 
   React.useEffect(() => {
-    let percent = (presaleSoldMars) * 100 / presaleTotal;
+    const chainId = 11155111;
+    const _chain = chains[chainId];
+    // web3 provider
+    const provider = new providers.JsonRpcProvider(_chain.rpc);
+    // presale contract
+    const { address: presaleContractAddress, abi: presaleContractABI } = contracts[chainId].presale;
+    const _presaleReadContract = new Contract(presaleContractAddress, presaleContractABI, provider);
+    initialize(_presaleReadContract);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  React.useEffect(() => {
+    let percent = soldAmount * 100 / saleAmount;
     if (isNaN(percent)) {
       percent = 0;
+    } else if (percent > 100) {
+      percent = 100;
     }
     if (!progressRef.current) return;
     var initialWidth = percent;
@@ -66,7 +87,7 @@ const Header = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [presaleSoldMars, presaleTotal]);
+  }, [soldAmount, saleAmount]);
 
   return (
 
@@ -154,7 +175,7 @@ const Header = () => {
                 </div>
                 <div className="mars-text-l">
                   <span className="text-white">$MARSWTF 101</span>
-                  <p className="text-white">CURRENT PRICE = ${presalePrice}</p>
+                  <p className="text-white">CURRENT PRICE = ${currentPrice}</p>
                 </div>
               </div>
               <div className="mars-item flex justify-center text-center tab-space">
@@ -168,10 +189,10 @@ const Header = () => {
             <div className="mars-content-row2">
               <div className="mars-text-bottom">
                 <div className="mars-text-1">
-                  <p className="text-white">Total MARS sold: {_renderNumber(presaleSoldMars)} </p>
+                  <p className="text-white">Total MARS sold: {_renderNumber(soldAmount)} </p>
                 </div>
                 <div className="mars-text-2">
-                  <p className="text-white">Sale Target: {_renderNumber(presaleTotal)} $MARS</p>
+                  <p className="text-white">Sale Target: {_renderNumber(saleAmount)} $MARS</p>
                 </div>
               </div>
               <div className="progress-bar">
